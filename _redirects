@@ -1,0 +1,4 @@
+# Short, shareable URLs (Cloudflare Pages / Netlify syntax)
+/host     /?mode=host     302
+/movies   /?view=movies   302
+/series   /?view=series   302

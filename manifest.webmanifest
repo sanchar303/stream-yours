@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "Stream Yours' — Free P2P Movie & Series Streaming",
+  "short_name": "Stream Yours'",
+  "description": "Stream movies and TV series straight between browsers with WebRTC. Zero uploads, multi-audio playback, any device.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#e3e8ef",
+  "theme_color": "#e3e8ef",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["entertainment", "multimedia", "utilities"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Browse Movies", "short_name": "Movies", "url": "/?view=movies", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Browse Series", "short_name": "Series", "url": "/?view=series", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Host my videos", "short_name": "Host", "url": "/?mode=host", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "stream-yours",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Stream Yours' — free peer-to-peer movie & series streaming over WebRTC. Static site + optional TURN function for Cloudflare Pages.",
+  "author": "Sanchar Koirala",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "check": "node --check app.js && node --check sw.js && node scripts/build.mjs --check",
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && wrangler pages dev dist",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=stream-yours",
+    "preview": "npm run build && wrangler pages deploy dist --project-name=stream-yours --branch=preview"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
