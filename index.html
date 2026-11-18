@@ -4,9 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Stream Yours'</title>
-    <meta name="description" content="Stream Yours' — Real-time peer-to-peer movie and series streaming across hosted devices." />
+    <title>Stream Yours' — Free P2P Movie &amp; Series Streaming App</title>
+    <meta name="description" content="Stream movies and TV series directly between browsers with zero uploads. Host local folders via WebRTC P2P with multi-audio tracks and instant playback." id="metaDescription" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     <meta name="author" content="Sanchar Koirala" />
+    <link rel="canonical" href="https://stream-yours.pages.dev/" id="canonicalLink" />
+
+    <!-- Open Graph / Social Graph -->
+    <meta property="og:title" content="Stream Yours' — Free P2P Movie &amp; Series Streaming App" />
+    <meta property="og:description" content="Stream movies and TV series directly between browsers with zero uploads. Host local folders via WebRTC P2P with multi-audio tracks and instant playback." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Stream Yours'" />
+    <meta property="og:url" content="https://stream-yours.pages.dev/" id="ogUrl" />
+    <meta property="og:image" content="https://stream-yours.pages.dev/favicon.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Stream Yours' — Free P2P Movie &amp; Series Streaming App" />
+    <meta name="twitter:description" content="Stream movies and TV series directly between browsers with zero uploads. Host local folders via WebRTC P2P with multi-audio tracks and instant playback." />
+    <meta name="twitter:image" content="https://stream-yours.pages.dev/favicon.png" />
+
+    <!-- PWA & Mobile Viewport Metadata -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -14,6 +32,130 @@
     <meta name="theme-color" content="#e3e8ef" id="metaThemeColor" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon.png" />
+
+    <!-- Multi-Entity @graph JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://stream-yours.pages.dev/#webapp",
+            "name": "Stream Yours'",
+            "url": "https://stream-yours.pages.dev/",
+            "description": "Real-time peer-to-peer movie and TV series streaming web application powered by WebRTC DataChannels and MP4Box Media Source Extensions with zero cloud uploads.",
+            "applicationCategory": "MultimediaApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "Requires JavaScript, WebRTC, and HTML5 Media Source Extensions",
+            "featureList": [
+              "Instant local folder and video file hosting directly from the browser",
+              "Direct WebRTC peer-to-peer binary streaming without cloud file uploads",
+              "Automatic Movies and Series folder categorization with episode playlists",
+              "Embedded multi-language audio track detection and instant switching via MP4Box",
+              "Keyframe-accurate timeline scrubbing with exact HH:MM:SS hover preview",
+              "Light and Dark neumorphic interface with responsive mobile and desktop layouts"
+            ],
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Sanchar Koirala"
+            }
+          },
+          {
+            "@type": "HowTo",
+            "@id": "https://stream-yours.pages.dev/#howto",
+            "name": "How to Stream Local Movies and Series Peer-to-Peer with Stream Yours'",
+            "description": "Share and stream local MP4, MKV, or WebM videos across devices in seconds without uploading files to a cloud server.",
+            "totalTime": "PT1M",
+            "step": [
+              {
+                "@type": "HowToStep",
+                "position": 1,
+                "name": "Select a Folder or Video Files",
+                "text": "Click Host Folder, Add Files, or drag and drop a movie or TV series directory directly onto the Stream Yours' window."
+              },
+              {
+                "@type": "HowToStep",
+                "position": 2,
+                "name": "Broadcast Your Live Catalog",
+                "text": "Your device automatically publishes lightweight metadata and organizes standalone films under Movies and subfolders under Series."
+              },
+              {
+                "@type": "HowToStep",
+                "position": 3,
+                "name": "Connect From Any Viewer Device",
+                "text": "Open Stream Yours' on another phone, tablet, or computer, filter by device or media type, and select any title to establish a direct WebRTC P2P tunnel."
+              },
+              {
+                "@type": "HowToStep",
+                "position": 4,
+                "name": "Customize Audio, Speed, and Fullscreen Playback",
+                "text": "Switch embedded audio languages, adjust playback speed from 0.5x to 2x, scrub by exact HH:MM:SS timestamps, or double-tap to skip in fullscreen."
+              }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://stream-yours.pages.dev/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How does Stream Yours' stream videos without uploading them to a server?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Stream Yours' establishes a direct browser-to-browser WebRTC DataChannel between the host device and the viewer. Video chunks are read locally on demand and streamed directly over P2P without ever storing your video files on a cloud server."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is Stream Yours' free to use and does it have file size limits?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, Stream Yours' is completely free to use in any modern browser. Because files remain on your local drive and stream in paced binary chunks with backpressure flow control, you can host large 1080p or 4K movie files and multi-season series folders."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How are Movies and TV Series organized automatically?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "When you host a folder, standalone video files are categorized under Movies, while videos grouped inside subfolders are automatically detected as Series with numbered episode playlists and Next/Previous episode controls."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I switch embedded audio languages during P2P playback?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Stream Yours' uses an integrated MP4Box and Media Source Extensions engine to inspect embedded audio tracks (such as English, Hindi, Japanese, or Korean) and lets you switch languages mid-stream from the player header."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What happens when I close the tab or click Stop Hosting?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Clicking Stop or closing the host browser tab immediately removes your device's live presence entry and tears down active WebRTC sessions so your catalog disappears from viewer screens right away."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which video formats and devices are supported?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Stream Yours' supports MP4, M4V, MOV, WebM, MKV, and other HTML5-compatible video containers across Windows, macOS, Linux, Android, and iOS browsers."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mp4box@0.5.2/dist/mp4box.all.min.js"></script>
@@ -1670,189 +1812,541 @@
         .player-screen:not(.fs-active) .vol-range { width: 50px; }
         .player-screen:not(.fs-active) .episode-pane { width: 235px; }
       }
+
+      /* ============================================================
+         ADDITIVE BELOW-THE-FOLD SEMANTIC SEO & GEO LAYER
+         (ZERO ABOVE-THE-FOLD SHIFT; MATCHES EXACT APP AESTHETIC)
+         ============================================================ */
+      html:not(.fs-lock),
+      body:not(.fs-lock) {
+        height: auto;
+        min-height: 100dvh;
+        max-height: none;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      body:not(.fs-lock) {
+        padding: 0;
+      }
+
+      .app-viewport-shell {
+        width: 100%;
+        height: 100dvh;
+        height: var(--app-height, 100dvh);
+        max-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        flex-shrink: 0;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        padding-left: env(safe-area-inset-left, 0px);
+        padding-right: env(safe-area-inset-right, 0px);
+      }
+
+      .seo-guide-section {
+        width: 100%;
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 36px 20px 48px;
+        border-top: 1px solid var(--divider);
+        color: var(--text);
+        user-select: text;
+      }
+
+      .seo-hero-card {
+        background: var(--surface);
+        box-shadow: var(--neu-out);
+        border: 1px solid var(--stroke);
+        border-radius: 26px;
+        padding: 24px 26px;
+        margin-bottom: 24px;
+      }
+
+      .seo-eyebrow {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: var(--steel-soft);
+        color: var(--steel);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+        margin-bottom: 10px;
+      }
+
+      .seo-hero-card h1 {
+        margin: 0 0 10px;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        line-height: 1.25;
+        color: var(--text);
+      }
+
+      .seo-hero-card p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-2);
+      }
+
+      .seo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin-bottom: 26px;
+      }
+
+      .seo-card {
+        background: var(--surface);
+        box-shadow: var(--neu-out-sm);
+        border: 1px solid var(--stroke);
+        border-radius: 22px;
+        padding: 18px 20px;
+      }
+
+      .seo-card h3 {
+        margin: 0 0 7px;
+        font-size: 14.5px;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .seo-card p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.55;
+        color: var(--text-2);
+      }
+
+      .seo-block-heading {
+        margin: 26px 4px 14px;
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -0.2px;
+        color: var(--text);
+      }
+
+      .seo-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+        margin-bottom: 26px;
+      }
+
+      .seo-step-card {
+        background: var(--surface);
+        box-shadow: var(--neu-out-sm);
+        border: 1px solid var(--stroke);
+        border-radius: 20px;
+        padding: 16px 18px;
+      }
+
+      .seo-step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 9px;
+        background: var(--steel-soft);
+        color: var(--steel);
+        font-size: 12px;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+
+      .seo-step-card h3 {
+        margin: 0 0 5px;
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .seo-step-card p {
+        margin: 0;
+        font-size: 12.5px;
+        line-height: 1.5;
+        color: var(--text-2);
+      }
+
+      .seo-faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+
+      .seo-faq-item {
+        background: var(--surface);
+        box-shadow: var(--neu-out-sm);
+        border: 1px solid var(--stroke);
+        border-radius: 18px;
+        padding: 14px 18px;
+        transition: border-color 0.15s ease;
+      }
+
+      .seo-faq-item[open] {
+        border-color: var(--steel);
+      }
+
+      .seo-faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .seo-faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .seo-faq-item summary::after {
+        content: "+";
+        width: 24px;
+        height: 24px;
+        border-radius: 8px;
+        background: var(--steel-soft);
+        color: var(--steel);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        flex-shrink: 0;
+      }
+
+      .seo-faq-item[open] summary::after {
+        content: "−";
+      }
+
+      .seo-faq-item p {
+        margin: 10px 0 2px;
+        padding-top: 10px;
+        border-top: 1px solid var(--divider);
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--text-2);
+      }
+
+      .seo-footer-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 14px 4px 0;
+        border-top: 1px solid var(--divider);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .seo-footer-links {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .seo-footer-links a {
+        color: var(--steel);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .seo-footer-links a:hover {
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
-    <!-- Accessible off-screen file & folder inputs -->
-    <input type="file" id="folderInput" class="sr-file-input" webkitdirectory directory multiple />
-    <input type="file" id="filesInput" class="sr-file-input" accept="video/*,.mp4,.mkv,.webm,.mov,.avi,.m4v" multiple />
+    <div class="app-viewport-shell">
+      <!-- Accessible off-screen file & folder inputs -->
+      <input type="file" id="folderInput" class="sr-file-input" webkitdirectory directory multiple aria-label="Choose a local folder of movies or TV series to host" />
+      <input type="file" id="filesInput" class="sr-file-input" accept="video/*,.mp4,.mkv,.webm,.mov,.avi,.m4v" multiple aria-label="Choose individual video files to host" />
 
-    <!-- Drag & Drop Overlay -->
-    <div class="drop-overlay" id="dropOverlay">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-        <line x1="12" y1="11" x2="12" y2="17"></line>
-        <polyline points="9 14 12 11 15 14"></polyline>
-      </svg>
-      <div style="font-size:16px; font-weight:800;">Drop Folder or Videos to Host</div>
-    </div>
-
-    <!-- One UI / iOS Files Header -->
-    <header class="top-bar">
-      <div class="brand-box" role="button" tabindex="0" onclick="returnToRoot()">
-        <div class="squircle-logo">
-          <img src="favicon.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-          <svg style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-            <polygon points="10 11 15 14 10 17 10 11" fill="currentColor" stroke="none"></polygon>
-          </svg>
-        </div>
-        <div class="brand-meta">
-          <div class="brand-title">Stream Yours'</div>
-          <div class="telemetry-strip" id="globalTelemetry">
-            <span class="node-pip off"></span>
-            <span class="mono">0 HOSTS</span>
-          </div>
-        </div>
+      <!-- Drag & Drop Overlay -->
+      <div class="drop-overlay" id="dropOverlay" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          <line x1="12" y1="11" x2="12" y2="17"></line>
+          <polyline points="9 14 12 11 15 14"></polyline>
+        </svg>
+        <div style="font-size:16px; font-weight:800;">Drop Folder or Videos to Host</div>
       </div>
 
-      <div class="top-controls">
-        <div class="search-well">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.3-4.3"></path>
-          </svg>
-          <input type="text" id="searchInput" placeholder="Search..." oninput="handleSearchInput(this.value)" />
-        </div>
-
-        <!-- Primary Folder Host Label Trigger -->
-        <label for="folderInput" class="morph-btn accent" role="button" tabindex="0" title="Host a Folder">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-          </svg>
-          <span>Host Folder</span>
-        </label>
-
-        <!-- Individual Video Files Trigger -->
-        <label for="filesInput" class="morph-btn" role="button" tabindex="0" title="Add Video Files">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          <span class="btn-lbl-sm">Files</span>
-        </label>
-
-        <!-- Stop Hosting Button -->
-        <div class="morph-btn danger-pill" id="btnStopHost" role="button" tabindex="0" onclick="stopHosting()" style="display:none;" title="Stop Hosting">
-          <span>Stop</span>
-        </div>
-
-        <!-- Reliable Hosting Webpage Button -->
-        <a class="host-dl-pill" href="https://dell-g15-movies.pages.dev" target="_blank" rel="noopener noreferrer" aria-label="More reliable hosting website">
-          <div class="host-dl-icon">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
+      <!-- One UI / iOS Files Header -->
+      <header class="top-bar">
+        <div class="brand-box" role="button" tabindex="0" onclick="returnToRoot()" aria-label="Stream Yours' Home — Return to root media library" title="Stream Yours' Home">
+          <div class="squircle-logo">
+            <img src="favicon.png" width="40" height="40" alt="Stream Yours' Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <svg style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              <polygon points="10 11 15 14 10 17 10 11" fill="currentColor" stroke="none"></polygon>
             </svg>
           </div>
-          <span class="host-dl-label-full">Reliable Host</span>
-          <span class="host-dl-label-short">Host Pro</span>
-          <span class="host-dl-ext mono">WEB</span>
-          <div class="host-dl-tip" role="tooltip">
-            <span>More reliable hosting website</span>
-            <span class="host-dl-tip-sub">· dell-g15-movies.pages.dev</span>
+          <div class="brand-meta">
+            <div class="brand-title">Stream Yours'</div>
+            <div class="telemetry-strip" id="globalTelemetry" aria-live="polite">
+              <span class="node-pip off"></span>
+              <span class="mono">0 HOSTS</span>
+            </div>
           </div>
-        </a>
-
-        <div class="morph-btn icon-sq" id="btnView" role="button" tabindex="0" onclick="toggleViewMode()" title="Switch View">
-          <svg id="viewIconSvg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <line x1="3" y1="6" x2="3.01" y2="6"></line>
-            <line x1="3" y1="12" x2="3.01" y2="12"></line>
-            <line x1="3" y1="18" x2="3.01" y2="18"></line>
-          </svg>
         </div>
 
-        <div class="morph-btn icon-sq" role="button" tabindex="0" onclick="refreshAllCatalog()" title="Refresh">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
-            <path d="M21 3v5h-5"></path>
-          </svg>
+        <div class="top-controls">
+          <div class="search-well">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Search..." aria-label="Search hosted movies, series, and devices" oninput="handleSearchInput(this.value)" />
+          </div>
+
+          <!-- Primary Folder Host Label Trigger -->
+          <label for="folderInput" class="morph-btn accent" role="button" tabindex="0" title="Host a Folder" aria-label="Host a local folder of movies or series">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Host Folder</span>
+          </label>
+
+          <!-- Individual Video Files Trigger -->
+          <label for="filesInput" class="morph-btn" role="button" tabindex="0" title="Add Video Files" aria-label="Add individual video files to stream">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span class="btn-lbl-sm">Files</span>
+          </label>
+
+          <!-- Stop Hosting Button -->
+          <div class="morph-btn danger-pill" id="btnStopHost" role="button" tabindex="0" onclick="stopHosting()" style="display:none;" title="Stop Hosting" aria-label="Stop hosting and disconnect peer stream">
+            <span>Stop</span>
+          </div>
+
+          <!-- Reliable Hosting Webpage Button -->
+          <a class="host-dl-pill" href="https://dell-g15-movies.pages.dev" target="_blank" rel="noopener noreferrer" aria-label="Open dedicated reliable hosting website at dell-g15-movies.pages.dev" title="More reliable hosting website">
+            <div class="host-dl-icon">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </div>
+            <span class="host-dl-label-full">Reliable Host</span>
+            <span class="host-dl-label-short">Host Pro</span>
+            <span class="host-dl-ext mono">WEB</span>
+            <div class="host-dl-tip" role="tooltip">
+              <span>More reliable hosting website</span>
+              <span class="host-dl-tip-sub">· dell-g15-movies.pages.dev</span>
+            </div>
+          </a>
+
+          <div class="morph-btn icon-sq" id="btnView" role="button" tabindex="0" onclick="toggleViewMode()" title="Switch View" aria-label="Toggle between grid and list layout view">
+            <svg id="viewIconSvg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <line x1="8" y1="6" x2="21" y2="6"></line>
+              <line x1="8" y1="12" x2="21" y2="12"></line>
+              <line x1="8" y1="18" x2="21" y2="18"></line>
+              <line x1="3" y1="6" x2="3.01" y2="6"></line>
+              <line x1="3" y1="12" x2="3.01" y2="12"></line>
+              <line x1="3" y1="18" x2="3.01" y2="18"></line>
+            </svg>
+          </div>
+
+          <div class="morph-btn icon-sq" role="button" tabindex="0" onclick="refreshAllCatalog()" title="Refresh" aria-label="Refresh connected hosts and media catalog">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true">
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+              <path d="M21 3v5h-5"></path>
+            </svg>
+          </div>
+
+          <div class="morph-btn icon-sq" id="btnTheme" role="button" tabindex="0" onclick="toggleTheme()" title="Switch Theme" aria-label="Toggle between Light and Dark theme">☾</div>
+        </div>
+      </header>
+
+      <!-- Filter Bar: Type (All / Movies / Series) + Device + Smart Sort & Direction -->
+      <div class="filter-bar" id="filterBar" role="region" aria-label="Media library filters and sorting">
+        <div class="segmented-group" role="tablist" aria-label="Filter by media category">
+          <div class="seg-tab active" id="typeTab_ALL" role="button" tabindex="0" onclick="setTypeFilter('ALL')" aria-label="Show all movies and series">All</div>
+          <div class="seg-tab" id="typeTab_MOVIES" role="button" tabindex="0" onclick="setTypeFilter('MOVIES')" aria-label="Filter by standalone movies">Movies</div>
+          <div class="seg-tab" id="typeTab_SERIES" role="button" tabindex="0" onclick="setTypeFilter('SERIES')" aria-label="Filter by TV series folders">Series</div>
         </div>
 
-        <div class="morph-btn icon-sq" id="btnTheme" role="button" tabindex="0" onclick="toggleTheme()" title="Switch Theme">☾</div>
+        <div class="select-filters">
+          <div class="morph-select-wrap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <select id="deviceSelect" onchange="setHostFilter(this.value)" aria-label="Filter by host device">
+              <option value="ALL">All Devices</option>
+            </select>
+          </div>
+
+          <div class="morph-select-wrap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 6h18"></path>
+              <path d="M7 12h10"></path>
+              <path d="M10 18h4"></path>
+            </svg>
+            <select id="sortSelect" onchange="setSortField(this.value)" aria-label="Sort media items by field">
+              <option value="DEFAULT">Default</option>
+              <option value="ALPHA">Alphabet</option>
+              <option value="SIZE">Size</option>
+              <option value="DATE">Date</option>
+            </select>
+          </div>
+
+          <div class="sort-dir-btn" id="sortDirBtn" role="button" tabindex="0" onclick="toggleSortDirection()" aria-label="Toggle ascending or descending sort order">
+            <svg class="sort-dir-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+            <div class="sort-dir-tip" id="sortDirTip" role="tooltip">Ascending</div>
+          </div>
+        </div>
       </div>
-    </header>
 
-    <!-- Filter Bar: Type (All / Movies / Series) + Device + Smart Sort & Direction -->
-    <div class="filter-bar" id="filterBar">
-      <div class="segmented-group">
-        <div class="seg-tab active" id="typeTab_ALL" role="button" tabindex="0" onclick="setTypeFilter('ALL')">All</div>
-        <div class="seg-tab" id="typeTab_MOVIES" role="button" tabindex="0" onclick="setTypeFilter('MOVIES')">Movies</div>
-        <div class="seg-tab" id="typeTab_SERIES" role="button" tabindex="0" onclick="setTypeFilter('SERIES')">Series</div>
-      </div>
+      <!-- Main File Explorer Scroll Area -->
+      <main class="explorer-scroll" id="explorerScroll" aria-label="Hosted media catalog"></main>
 
-      <div class="select-filters">
-        <div class="morph-select-wrap">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-            <line x1="8" y1="21" x2="16" y2="21"></line>
-            <line x1="12" y1="17" x2="12" y2="21"></line>
-          </svg>
-          <select id="deviceSelect" onchange="setHostFilter(this.value)" aria-label="Device">
-            <option value="ALL">All Devices</option>
-          </select>
+      <footer>
+        <div class="storage-meter">
+          <div class="storage-track">
+            <div class="storage-fill" id="storageFillBar"></div>
+          </div>
+          <span class="mono" id="footerTelemetry">0 · 0 B</span>
         </div>
-
-        <div class="morph-select-wrap">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6h18"></path>
-            <path d="M7 12h10"></path>
-            <path d="M10 18h4"></path>
-          </svg>
-          <select id="sortSelect" onchange="setSortField(this.value)" aria-label="Sort">
-            <option value="DEFAULT">Default</option>
-            <option value="ALPHA">Alphabet</option>
-            <option value="SIZE">Size</option>
-            <option value="DATE">Date</option>
-          </select>
-        </div>
-
-        <div class="sort-dir-btn" id="sortDirBtn" role="button" tabindex="0" onclick="toggleSortDirection()" aria-label="Ascending">
-          <svg class="sort-dir-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <polyline points="19 12 12 19 5 12"></polyline>
-          </svg>
-          <div class="sort-dir-tip" id="sortDirTip" role="tooltip">Ascending</div>
-        </div>
-      </div>
+        <span>© 2026 Sanchar Koirala | All rights reserved</span>
+      </footer>
     </div>
 
-    <!-- Main File Explorer Scroll Area -->
-    <main class="explorer-scroll" id="explorerScroll"></main>
+    <!-- Below-the-Fold Static Semantic HTML Layer for Crawlers & AI Overviews -->
+    <section class="seo-guide-section" aria-label="About Stream Yours' Peer-to-Peer Streaming">
+      <header class="seo-hero-card">
+        <span class="seo-eyebrow">WEBRTC P2P · ZERO CLOUD UPLOADS · MULTI-AUDIO MSE</span>
+        <h1>Stream Yours' — Free Peer-to-Peer Movie &amp; Series Streaming Web App</h1>
+        <p>
+          Stream Yours' turns any modern web browser into a private, real-time media host. Share local movie files and multi-season TV series folders directly from your PC, Mac, or phone to any viewer worldwide over encrypted WebRTC DataChannels—with zero cloud uploads, zero file size caps, and instant embedded audio language switching.
+        </p>
+      </header>
 
-    <footer>
-      <div class="storage-meter">
-        <div class="storage-track">
-          <div class="storage-fill" id="storageFillBar"></div>
-        </div>
-        <span class="mono" id="footerTelemetry">0 · 0 B</span>
+      <div class="seo-grid">
+        <article class="seo-card">
+          <h3>Direct Browser-to-Browser P2P</h3>
+          <p>
+            Videos stay on your local storage and stream on demand in paced 192 KB binary frames with adaptive backpressure flow control, eliminating slow upload queues and third-party storage limits.
+          </p>
+        </article>
+        <article class="seo-card">
+          <h3>Automatic Movies &amp; Series Grouping</h3>
+          <p>
+            Drop a folder once: standalone films appear in Movies with parsed resolution, year, and codec badges, while subfolders automatically organize into Series with episode playlists and Next/Prev controls.
+          </p>
+        </article>
+        <article class="seo-card">
+          <h3>Embedded Multi-Language Audio</h3>
+          <p>
+            Powered by MP4Box and HTML5 Media Source Extensions (MSE), the cinema player detects embedded ISO-639 audio tracks (English, Hindi, Japanese, Korean, and more) for instant mid-stream language switching.
+          </p>
+        </article>
+        <article class="seo-card">
+          <h3>Keyframe-Accurate Seeking &amp; Resume</h3>
+          <p>
+            Scrub across multi-gigabyte 1080p and 4K files using exact HH:MM:SS timeline previews, double-tap ±10s fullscreen gestures, variable playback speeds (0.5x–2x), and automatic local resume progress.
+          </p>
+        </article>
       </div>
-      <span>© 2026 Sanchar Koirala | All rights reserved</span>
-    </footer>
+
+      <h2 class="seo-block-heading">How Peer-to-Peer Video Hosting Works</h2>
+      <div class="seo-steps">
+        <article class="seo-step-card">
+          <div class="seo-step-num">1</div>
+          <h3>Choose a Folder or Videos</h3>
+          <p>Click <strong>Host Folder</strong>, select individual <strong>Files</strong>, or drag and drop a media directory directly onto the Stream Yours' window.</p>
+        </article>
+        <article class="seo-step-card">
+          <div class="seo-step-num">2</div>
+          <h3>Live Catalog Discovery</h3>
+          <p>Your device publishes lightweight title metadata and stays synced via a 5-second heartbeat that automatically cleans up when you disconnect.</p>
+        </article>
+        <article class="seo-step-card">
+          <div class="seo-step-num">3</div>
+          <h3>Open on Any Viewer Device</h3>
+          <p>Visit Stream Yours' from a second device, filter by host or media type, and tap any movie or episode to open a direct WebRTC peer tunnel.</p>
+        </article>
+        <article class="seo-step-card">
+          <div class="seo-step-num">4</div>
+          <h3>Stream in Cinema Fullscreen</h3>
+          <p>Enjoy responsive portrait or landscape fullscreen playback, switch audio tracks, loop episodes, and control playback with keyboard or touch gestures.</p>
+        </article>
+      </div>
+
+      <h2 class="seo-block-heading">Frequently Asked Questions</h2>
+      <div class="seo-faq-list">
+        <details class="seo-faq-item">
+          <summary>How does Stream Yours' stream videos without uploading them to a server?</summary>
+          <p>Stream Yours' establishes a direct browser-to-browser WebRTC DataChannel between the host device and the viewer. Video chunks are read locally on demand and streamed directly over P2P without ever storing your video files on a cloud server.</p>
+        </details>
+        <details class="seo-faq-item">
+          <summary>Is Stream Yours' free to use and does it have file size limits?</summary>
+          <p>Yes, Stream Yours' is completely free to use in any modern browser. Because files remain on your local drive and stream in paced binary chunks with backpressure flow control, you can host large 1080p or 4K movie files and multi-season series folders.</p>
+        </details>
+        <details class="seo-faq-item">
+          <summary>How are Movies and TV Series organized automatically?</summary>
+          <p>When you host a folder, standalone video files are categorized under Movies, while videos grouped inside subfolders are automatically detected as Series with numbered episode playlists and Next/Previous episode controls.</p>
+        </details>
+        <details class="seo-faq-item">
+          <summary>Can I switch embedded audio languages during P2P playback?</summary>
+          <p>Yes. Stream Yours' uses an integrated MP4Box and Media Source Extensions engine to inspect embedded audio tracks (such as English, Hindi, Japanese, or Korean) and lets you switch languages mid-stream from the player header.</p>
+        </details>
+        <details class="seo-faq-item">
+          <summary>What happens when I close the tab or click Stop Hosting?</summary>
+          <p>Clicking Stop or closing the host browser tab immediately removes your device's live presence entry and tears down active WebRTC sessions so your catalog disappears from viewer screens right away.</p>
+        </details>
+        <details class="seo-faq-item">
+          <summary>Which video formats and devices are supported?</summary>
+          <p>Stream Yours' supports MP4, M4V, MOV, WebM, MKV, and other HTML5-compatible video containers across Windows, macOS, Linux, Android, and iOS browsers.</p>
+        </details>
+      </div>
+
+      <footer class="seo-footer-bar">
+        <span>Stream Yours' — Real-Time WebRTC Peer-to-Peer Media Streaming</span>
+        <div class="seo-footer-links">
+          <a href="?view=movies">Browse Movies</a>
+          <a href="?view=series">Browse Series</a>
+          <a href="https://dell-g15-movies.pages.dev" target="_blank" rel="noopener noreferrer">Reliable Host</a>
+        </div>
+      </footer>
+    </section>
 
     <!-- Cinema Player -->
-    <div class="player-screen" id="playerScreen">
+    <div class="player-screen" id="playerScreen" role="dialog" aria-modal="true" aria-label="Cinema Video Player">
       <div class="player-header">
         <div class="player-title-wrap">
           <div class="player-name" id="playerName">Video</div>
           <div class="quality-badge mono" id="qualityBadge">HD</div>
         </div>
         <div class="player-pills">
-          <div class="p-pill" id="audioBtn" role="button" tabindex="0" onclick="openAudioPopup()" style="display:none;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <div class="p-pill" id="audioBtn" role="button" tabindex="0" onclick="openAudioPopup()" style="display:none;" aria-label="Select embedded audio language track">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
               <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
             </svg>
             <span id="audioBtnLabel">Audio</span>
           </div>
-          <div class="p-pill" id="prevEpBtn" role="button" tabindex="0" onclick="playPrevEpisode()" style="display:none;">‹ Prev</div>
-          <div class="p-pill" id="nextEpBtn" role="button" tabindex="0" onclick="playNextEpisode()" style="display:none;">Next ›</div>
-          <div class="p-pill icon-pill" role="button" tabindex="0" onclick="openPlayerOverflowMenu()" title="More">•••</div>
-          <div class="p-pill" role="button" tabindex="0" onclick="closePlayer()">Close</div>
+          <div class="p-pill" id="prevEpBtn" role="button" tabindex="0" onclick="playPrevEpisode()" style="display:none;" aria-label="Play previous episode">‹ Prev</div>
+          <div class="p-pill" id="nextEpBtn" role="button" tabindex="0" onclick="playNextEpisode()" style="display:none;" aria-label="Play next episode">Next ›</div>
+          <div class="p-pill icon-pill" role="button" tabindex="0" onclick="openPlayerOverflowMenu()" title="More" aria-label="More playback options">•••</div>
+          <div class="p-pill" role="button" tabindex="0" onclick="closePlayer()" aria-label="Close video player">Close</div>
         </div>
       </div>
 
@@ -1861,24 +2355,24 @@
           <div class="video-stage" id="videoStage">
             <video id="videoEl" playsinline webkit-playsinline preload="auto"></video>
 
-            <div class="skip-osd left mono" id="skipOsdLeft">-10s</div>
-            <div class="skip-osd right mono" id="skipOsdRight">+10s</div>
+            <div class="skip-osd left mono" id="skipOsdLeft" aria-hidden="true">-10s</div>
+            <div class="skip-osd right mono" id="skipOsdRight" aria-hidden="true">+10s</div>
 
-            <div class="fs-exit-btn" id="fsExitBtn" role="button" tabindex="0">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <div class="fs-exit-btn" id="fsExitBtn" role="button" tabindex="0" aria-label="Exit fullscreen mode">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
                 <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
               </svg>
               <span>Exit Fullscreen</span>
             </div>
 
-            <div class="loader-box" id="loaderBox">
+            <div class="loader-box" id="loaderBox" aria-live="polite">
               <div class="loader-circle"></div>
               <div class="loader-text mono" id="loaderText">CONNECTING</div>
             </div>
           </div>
 
           <div class="player-controls">
-            <div class="seek-area" id="seekArea" onclick="seekFromBar(event)">
+            <div class="seek-area" id="seekArea" onclick="seekFromBar(event)" role="slider" aria-label="Video playback timeline scrubber" tabindex="0">
               <div class="seek-tooltip mono" id="seekTooltip">00:00:00</div>
               <div class="seek-bar" id="seekBar">
                 <div class="seek-buffered" id="seekBuffered"></div>
@@ -1891,26 +2385,26 @@
 
             <div class="ctrl-row">
               <div class="ctrl-group">
-                <div class="p-pill steel-pill" id="playBtn" role="button" tabindex="0" onclick="togglePlayPause()">Pause</div>
-                <div class="p-pill" role="button" tabindex="0" onclick="skipBy(-10)">-10s</div>
-                <div class="p-pill" role="button" tabindex="0" onclick="skipBy(10)">+10s</div>
+                <div class="p-pill steel-pill" id="playBtn" role="button" tabindex="0" onclick="togglePlayPause()" aria-label="Play or pause video">Pause</div>
+                <div class="p-pill" role="button" tabindex="0" onclick="skipBy(-10)" aria-label="Rewind 10 seconds">-10s</div>
+                <div class="p-pill" role="button" tabindex="0" onclick="skipBy(10)" aria-label="Forward 10 seconds">+10s</div>
                 <div class="clock-text" id="clockText">00:00 / 00:00</div>
               </div>
 
               <div class="ctrl-group">
-                <div class="p-pill" id="speedBtn" role="button" tabindex="0" onclick="openSpeedPopup()">1x</div>
+                <div class="p-pill" id="speedBtn" role="button" tabindex="0" onclick="openSpeedPopup()" aria-label="Change playback speed">1x</div>
                 <div class="vol-box">
-                  <div class="vol-mute" id="muteBtn" role="button" tabindex="0" onclick="toggleMute()" title="Mute">
-                    <svg id="volIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <div class="vol-mute" id="muteBtn" role="button" tabindex="0" onclick="toggleMute()" title="Mute" aria-label="Mute or unmute audio">
+                    <svg id="volIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                       <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
                     </svg>
                   </div>
-                  <input type="range" class="vol-range" id="volRange" min="0" max="1" step="0.05" value="1" oninput="setVolume(this.value)" />
+                  <input type="range" class="vol-range" id="volRange" min="0" max="1" step="0.05" value="1" aria-label="Volume level" oninput="setVolume(this.value)" />
                 </div>
-                <div class="p-pill" id="fsEnterBtn" role="button" tabindex="0" onclick="enterFullscreenMode()" title="Fullscreen">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <div class="p-pill" id="fsEnterBtn" role="button" tabindex="0" onclick="enterFullscreenMode()" title="Fullscreen" aria-label="Enter fullscreen mode">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true">
                     <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path>
                   </svg>
                   <span>Fullscreen</span>
@@ -1920,7 +2414,7 @@
           </div>
         </div>
 
-        <aside class="episode-pane" id="episodePane">
+        <aside class="episode-pane" id="episodePane" aria-label="Series episodes playlist">
           <div class="ep-pane-head">
             <div class="ep-pane-title" id="epPaneTitle">Episodes</div>
             <div class="ep-pane-count mono" id="epPaneCount">1/1</div>
@@ -1932,16 +2426,16 @@
 
     <!-- Multi-Purpose Sheet Modal (Audio Language, Speed, Overflow) -->
     <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal()">
-      <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-sheet" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-head">
           <div class="modal-title" id="modalTitle">Menu</div>
-          <div class="modal-close" role="button" tabindex="0" onclick="closeModal()">✕</div>
+          <div class="modal-close" role="button" tabindex="0" onclick="closeModal()" aria-label="Close menu">✕</div>
         </div>
         <div class="modal-list" id="modalList"></div>
       </div>
     </div>
 
-    <div class="toast" id="toast"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script>
       /* ============================================================
@@ -2326,7 +2820,7 @@
 
         const gradId = `pg_${seed}`;
         return `
-          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
               <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="${pal.c1}"/>
@@ -3193,7 +3687,7 @@
                   : `${meta.ext || 'VID'} · ${item.sizeLabel}`;
 
                 return `
-                  <div class="file-tile" role="button" tabindex="0" onclick="${clickFnName}(${idx})">
+                  <div class="file-tile" role="button" tabindex="0" onclick="${clickFnName}(${idx})" aria-label="Open ${escapeHtml(item.cleanName)} from ${escapeHtml(item.serverName)}">
                     <div class="thumb-frame">
                       ${buildCodedThumbnailSvg(item, epNum)}
                     </div>
@@ -3223,7 +3717,7 @@
                 : `${meta.ext || 'VID'} · ${item.sizeLabel}`;
 
               return `
-                <div class="oneui-row" role="button" tabindex="0" onclick="${clickFnName}(${idx})">
+                <div class="oneui-row" role="button" tabindex="0" onclick="${clickFnName}(${idx})" aria-label="Open ${escapeHtml(item.cleanName)} from ${escapeHtml(item.serverName)}">
                   <div class="row-thumb">
                     ${buildCodedThumbnailSvg(item, epNum)}
                   </div>
@@ -3287,7 +3781,7 @@
           let html = `
             <div class="series-head-card">
               <div class="series-head-left">
-                <div class="morph-btn icon-sq" role="button" tabindex="0" onclick="returnToRoot()" title="Back">←</div>
+                <div class="morph-btn icon-sq" role="button" tabindex="0" onclick="returnToRoot()" title="Back" aria-label="Back to all movies and series">←</div>
                 <div class="series-head-thumb">${buildCodedThumbnailSvg(s)}</div>
                 <div style="min-width:0;">
                   <div class="section-heading" style="font-size:16px;">${escapeHtml(s.cleanName)}</div>
@@ -3298,7 +3792,7 @@
                 </div>
               </div>
               ${filteredEps.length > 0 ? `
-                <div class="morph-btn accent" role="button" tabindex="0" onclick="handleVisibleEpisodeClick(0)">▶ Play</div>
+                <div class="morph-btn accent" role="button" tabindex="0" onclick="handleVisibleEpisodeClick(0)" aria-label="Play first episode of ${escapeHtml(s.cleanName)}">▶ Play</div>
               ` : ''}
             </div>
           `;
@@ -3431,7 +3925,7 @@
           const meta = f.meta || parseMediaMetadata(f.name, false);
           const dispNum = (f.defaultOrder ?? i) + 1;
           return `
-            <div class="ep-card ${isCur ? 'active' : ''}" id="epCard_${i}" role="button" tabindex="0" onclick="selectEpisode(${i})">
+            <div class="ep-card ${isCur ? 'active' : ''}" id="epCard_${i}" role="button" tabindex="0" onclick="selectEpisode(${i})" aria-label="Play episode ${dispNum}: ${escapeHtml(f.cleanName)}">
               <div class="ep-num mono">${String(dispNum).padStart(2, '0')}</div>
               <div class="ep-info">
                 <div class="ep-name" title="${escapeHtml(f.name)}">${escapeHtml(f.cleanName)}</div>
@@ -3697,7 +4191,7 @@
         document.getElementById('modalTitle').textContent = 'Audio Language';
         const list = document.getElementById('modalList');
         list.innerHTML = availableAudioTracks.map((tr, idx) => `
-          <div class="modal-option ${idx === activeAudioTrackIndex ? 'selected' : ''}" role="button" tabindex="0" onclick="selectAudioTrack(${idx})">
+          <div class="modal-option ${idx === activeAudioTrackIndex ? 'selected' : ''}" role="button" tabindex="0" onclick="selectAudioTrack(${idx})" aria-label="Select ${escapeHtml(tr.label)} audio track">
             <div class="opt-main">
               <div class="opt-title">${escapeHtml(tr.label)}</div>
               <div class="opt-sub">${escapeHtml(tr.meta)}</div>
@@ -4611,14 +5105,14 @@
         document.getElementById('modalTitle').textContent = 'Options';
         const list = document.getElementById('modalList');
         list.innerHTML = `
-          <div class="modal-option" role="button" tabindex="0" onclick="restartFromZero()">
+          <div class="modal-option" role="button" tabindex="0" onclick="restartFromZero()" aria-label="Restart video from 00:00">
             <div class="opt-main">
               <div class="opt-title">Restart</div>
               <div class="opt-sub">Play from 00:00</div>
             </div>
             <span class="mono" style="color:#8bbce8; font-weight:800;">↺</span>
           </div>
-          <div class="modal-option ${isLooping ? 'selected' : ''}" role="button" tabindex="0" onclick="toggleLoopPlayback()">
+          <div class="modal-option ${isLooping ? 'selected' : ''}" role="button" tabindex="0" onclick="toggleLoopPlayback()" aria-label="Toggle loop video playback">
             <div class="opt-main">
               <div class="opt-title">Loop Video</div>
               <div class="opt-sub">${isLooping ? 'Enabled' : 'Off'}</div>
@@ -4646,7 +5140,7 @@
         document.getElementById('modalTitle').textContent = 'Speed';
         const list = document.getElementById('modalList');
         list.innerHTML = SPEED_OPTIONS.map(opt => `
-          <div class="modal-option ${opt.value === activeSpeed ? 'selected' : ''}" role="button" tabindex="0" onclick="selectPlaybackSpeed(${opt.value})">
+          <div class="modal-option ${opt.value === activeSpeed ? 'selected' : ''}" role="button" tabindex="0" onclick="selectPlaybackSpeed(${opt.value})" aria-label="Set playback speed to ${escapeHtml(opt.label)}">
             <div class="opt-main">
               <div class="opt-title">${escapeHtml(opt.label)}</div>
               <div class="opt-sub">${escapeHtml(opt.sub)}</div>
@@ -4788,6 +5282,54 @@
         } else if (e.key === 'ArrowRight') skipBy(10);
         else if (e.key === 'ArrowLeft') skipBy(-10);
       });
+
+      /* ============================================================
+         NON-BREAKING CANONICAL & DEEP-LINK URL STATE RESOLVER
+         ============================================================ */
+      (function initSeoAndDeepLinkState() {
+        try {
+          const cleanBaseUrl = window.location.origin && window.location.origin !== 'null'
+            ? `${window.location.origin}${window.location.pathname}`
+            : 'https://stream-yours.pages.dev/';
+
+          const canonicalEl = document.getElementById('canonicalLink');
+          const ogUrlEl = document.getElementById('ogUrl');
+          const metaDescEl = document.getElementById('metaDescription');
+
+          const params = new URLSearchParams(window.location.search);
+          const viewParam = (params.get('view') || '').toLowerCase();
+          const modeParam = (params.get('mode') || '').toLowerCase();
+          const queryParam = (params.get('q') || '').trim();
+
+          if (viewParam === 'movies') {
+            document.title = "Movies — Stream Yours' P2P Movie Streaming";
+            if (metaDescEl) metaDescEl.setAttribute('content', "Browse and stream standalone HD & 4K movies peer-to-peer directly from connected host browsers with zero cloud uploads.");
+            if (canonicalEl) canonicalEl.setAttribute('href', `${cleanBaseUrl}?view=movies`);
+            if (ogUrlEl) ogUrlEl.setAttribute('content', `${cleanBaseUrl}?view=movies`);
+            setTypeFilter('MOVIES');
+          } else if (viewParam === 'series') {
+            document.title = "TV Series — Stream Yours' P2P Episode Streaming";
+            if (metaDescEl) metaDescEl.setAttribute('content', "Stream multi-season TV series folders peer-to-peer with automatic episode playlists, multi-language audio tracks, and resume sync.");
+            if (canonicalEl) canonicalEl.setAttribute('href', `${cleanBaseUrl}?view=series`);
+            if (ogUrlEl) ogUrlEl.setAttribute('content', `${cleanBaseUrl}?view=series`);
+            setTypeFilter('SERIES');
+          } else if (modeParam === 'host') {
+            document.title = "Host Local Videos — Stream Yours' WebRTC P2P Broadcaster";
+            if (metaDescEl) metaDescEl.setAttribute('content', "Host local movie and TV series folders directly from your browser using WebRTC DataChannels with zero server uploads.");
+            if (canonicalEl) canonicalEl.setAttribute('href', `${cleanBaseUrl}?mode=host`);
+            if (ogUrlEl) ogUrlEl.setAttribute('content', `${cleanBaseUrl}?mode=host`);
+          } else {
+            if (canonicalEl) canonicalEl.setAttribute('href', cleanBaseUrl);
+            if (ogUrlEl) ogUrlEl.setAttribute('content', cleanBaseUrl);
+          }
+
+          if (queryParam) {
+            const searchEl = document.getElementById('searchInput');
+            if (searchEl) searchEl.value = queryParam;
+            handleSearchInput(queryParam);
+          }
+        } catch (e) {}
+      })();
     </script>
   </body>
 </html>

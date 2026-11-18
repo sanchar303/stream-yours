@@ -1,0 +1,19 @@
+# Stream Yours'
+
+> Free real-time peer-to-peer movie and TV series streaming web application powered by browser-to-browser WebRTC DataChannels and MP4Box Media Source Extensions—with zero cloud uploads.
+
+## Overview
+Stream Yours' allows any user to select a local folder or individual video files (`.mp4`, `.m4v`, `.mov`, `.webm`, `.mkv`) in their browser and broadcast them immediately to connected viewers worldwide. Video data never uploads to a central storage server; instead, binary chunks stream directly from the host's local storage to the viewer's cinema player over encrypted WebRTC DataChannels.
+
+## Core Capabilities
+- **Zero-Upload WebRTC P2P Streaming:** Streams local files on demand using 192 KB binary frames with 10 MB `bufferedamountlow` backpressure flow control.
+- **Automatic Movies & Series Categorization:** Standalone video files appear under **Movies** with parsed resolution (`4K`, `1080p`, `720p`), release year, and codec (`HDR`, `HEVC`) badges, while subfolders group automatically into **Series** with ordered episode playlists.
+- **Embedded Multi-Language Audio Switching:** Uses MP4Box and HTML5 Media Source Extensions (MSE) to detect embedded ISO-639 audio tracks (English, Hindi, Japanese, Korean, Spanish, and more) and switch languages mid-stream.
+- **Keyframe-Accurate Timeline & Gesture Controls:** Features exact `HH:MM:SS` hover scrubbing, double-tap `±10s` skip gestures, `0.5x`–`2x` playback speed, loop mode, and local watch-progress resume.
+- **Instant Disconnection Cleanup:** Combines a 5-second presence heartbeat with `onDisconnect` and `keepalive` cleanup so offline hosts vanish immediately.
+
+## Entry Points
+- `/` — Main Stream Yours' P2P media explorer and host launcher
+- `/?view=movies` — Filtered view for standalone peer-hosted movies
+- `/?view=series` — Filtered view for peer-hosted multi-episode TV series
+- `/?mode=host` — Direct broadcaster intent view for hosting local video folders
