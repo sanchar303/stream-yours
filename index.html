@@ -46,7 +46,6 @@
         --navy-soft: rgba(20, 43, 71, 0.09);
         --brand-grad: linear-gradient(135deg, #2f6394 0%, #10233c 100%);
         --brand-shadow: 0 6px 16px rgba(16, 35, 60, 0.24);
-        --green: #169c5b;
         --amber: #d97706;
       }
 
@@ -72,7 +71,6 @@
         --navy-soft: rgba(139, 188, 232, 0.12);
         --brand-grad: linear-gradient(135deg, #5b9bd5 0%, #244b78 100%);
         --brand-shadow: 0 6px 18px rgba(6, 10, 18, 0.55);
-        --green: #2ecc80;
         --amber: #f59e0b;
       }
 
@@ -152,6 +150,18 @@
       .sig-bars.s2 i:nth-child(1),
       .sig-bars.s2 i:nth-child(2) { background: var(--steel); }
       .sig-bars.s1 i:nth-child(1) { background: var(--amber); }
+
+      .status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--steel);
+        display: inline-block;
+        flex-shrink: 0;
+      }
+      .status-dot.off {
+        background: var(--text-muted);
+      }
 
       /* ============================================================
          ONE UI + iOS FILES TOP BAR
@@ -321,6 +331,96 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+
+      /* Reliable Hosting External Webpage Pill */
+      .host-dl-pill {
+        position: relative;
+        height: 38px;
+        padding: 0 11px 0 8px;
+        border-radius: 15px;
+        background: var(--surface);
+        box-shadow: var(--neu-out-sm);
+        border: 1px solid var(--stroke);
+        color: var(--text);
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.18s ease, color 0.18s ease;
+      }
+      .host-dl-pill:hover {
+        border-color: var(--steel);
+        color: var(--steel);
+      }
+      .host-dl-pill:active {
+        transform: scale(0.96);
+        box-shadow: var(--neu-in);
+      }
+      .host-dl-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 9px;
+        background: var(--steel-soft);
+        color: var(--steel);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.18s ease, color 0.18s ease;
+      }
+      .host-dl-pill:hover .host-dl-icon {
+        background: var(--steel);
+        color: #ffffff;
+      }
+      .host-dl-label-full { display: inline; }
+      .host-dl-label-short { display: none; }
+      .host-dl-ext {
+        padding: 2px 6px;
+        border-radius: 6px;
+        background: var(--navy-soft);
+        color: var(--text-2);
+        font-size: 10px;
+        font-weight: 800;
+        line-height: 1.1;
+      }
+      .host-dl-tip {
+        position: absolute;
+        top: calc(100% + 9px);
+        right: 0;
+        padding: 8px 12px;
+        border-radius: 13px;
+        background: var(--surface-alt);
+        box-shadow: var(--neu-out);
+        border: 1px solid var(--stroke);
+        color: var(--text);
+        font-size: 11.5px;
+        font-weight: 600;
+        line-height: 1.3;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-4px) scale(0.98);
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .host-dl-tip-sub {
+        color: var(--steel);
+        font-weight: 800;
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .host-dl-pill:hover .host-dl-tip,
+        .host-dl-pill:focus-visible .host-dl-tip {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
       }
 
       /* ============================================================
@@ -1079,6 +1179,16 @@
         border-top-color: #5b9bd5;
         animation: spin 0.72s linear infinite;
       }
+      .loader-telemetry {
+        padding: 3px 10px;
+        border-radius: 10px;
+        background: rgba(12, 19, 32, 0.78);
+        border: 1px solid rgba(139, 188, 232, 0.22);
+        color: #9db2cc;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .loader-telemetry:empty { display: none; }
       @keyframes spin { to { transform: rotate(360deg); } }
 
       .player-controls {
@@ -1482,7 +1592,10 @@
         .search-well { max-width: none; flex: 1; height: 36px; padding: 0 11px; }
         .morph-btn { height: 36px; padding: 0 11px; font-size: 11.5px; }
         .morph-btn.icon-sq { width: 36px; }
-        .host-chip { height: 36px; padding: 0 10px; font-size: 11.5px; max-width: 115px; }
+        .host-chip { height: 36px; padding: 0 10px; font-size: 11.5px; max-width: 110px; }
+        .host-dl-pill { height: 36px; padding: 0 9px 0 7px; border-radius: 14px; font-size: 11.5px; gap: 6px; }
+        .host-dl-icon { width: 22px; height: 22px; border-radius: 8px; }
+        .host-dl-ext { display: none; }
         .filter-bar { padding: 4px 14px 8px; gap: 7px; }
         .morph-select-wrap { height: 34px; padding: 0 9px; font-size: 11.5px; }
         .morph-select-wrap select { font-size: 11.5px; }
@@ -1491,6 +1604,11 @@
         .files-grid { grid-template-columns: repeat(2, 1fr); gap: 11px; }
         .file-tile { padding: 9px; border-radius: 20px; }
         footer { padding: 6px 14px 8px; font-size: 10.5px; }
+      }
+
+      @media (max-width: 520px) {
+        .host-dl-label-full { display: none; }
+        .host-dl-label-short { display: inline; }
       }
 
       @media (max-width: 900px) and (orientation: portrait) {
@@ -1559,6 +1677,7 @@
         <div class="brand-meta">
           <div class="brand-title">Stream Yours'</div>
           <div class="telemetry-strip" id="globalTelemetry">
+            <span class="status-dot off"></span>
             <span class="mono">0 HOSTS</span>
           </div>
         </div>
@@ -1598,6 +1717,30 @@
             <span>Stop</span>
           </div>
         </div>
+
+        <!-- Reliable Hosting Webpage Button -->
+        <a
+          class="host-dl-pill"
+          href="https://dell-g15-movies.pages.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="More reliable hosting — dell-g15-movies.pages.dev"
+        >
+          <div class="host-dl-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </div>
+          <span class="host-dl-label-full">Reliable Host</span>
+          <span class="host-dl-label-short">Dell G15</span>
+          <span class="host-dl-ext mono">.dev</span>
+          <div class="host-dl-tip" role="tooltip">
+            <span>More reliable hosting</span>
+            <span class="host-dl-tip-sub">· dell-g15-movies.pages.dev</span>
+          </div>
+        </a>
 
         <div class="morph-btn icon-sq" id="btnView" role="button" tabindex="0" onclick="toggleViewMode()" title="Switch View">
           <svg id="viewIconSvg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -1644,8 +1787,8 @@
             <line x1="8" y1="21" x2="16" y2="21"></line>
             <line x1="12" y1="17" x2="12" y2="21"></line>
           </svg>
-          <select id="deviceSelect" onchange="setHostFilter(this.value)" aria-label="Host">
-            <option value="ALL">All Hosts</option>
+          <select id="deviceSelect" onchange="setHostFilter(this.value)" aria-label="Device">
+            <option value="ALL">All Devices</option>
           </select>
         </div>
 
@@ -1684,7 +1827,7 @@
         </div>
         <span class="mono" id="footerTelemetry">0 · 0 B</span>
       </div>
-      <span>© 2026 Sanchar Koirala</span>
+      <span>© 2026 Sanchar Koirala | All rights reserved</span>
     </footer>
 
     <!-- Cinema Player -->
@@ -1723,10 +1866,10 @@
               </svg>
               <span>Exit Fullscreen</span>
             </div>
-
-            <!-- Buffering Spinner -->
+            <!-- Buffering Spinner & Transfer Telemetry -->
             <div class="loader-box" id="loaderBox">
               <div class="loader-circle"></div>
+              <div class="loader-telemetry mono" id="loaderTelemetry"></div>
             </div>
           </div>
 
@@ -1864,297 +2007,38 @@
       firebase.initializeApp(activeFirebaseConfig);
       const db = firebase.database();
 
+      const RTDB_BASE_URL = String(activeFirebaseConfig.databaseURL || 'https://cloud-db-studio-default-rtdb.firebaseio.com').replace(/\/+$/, '');
       const DB_HOSTS_PATH = 'stream-yours-hosts';
       const VIEW_MODE_STORAGE_KEY = 'sy_movies_view_mode';
       const HOST_NAME_STORAGE_KEY = 'sy_host_device_name';
       const VIDEO_EXTS = new Set(['mp4', 'mkv', 'webm', 'mov', 'avi', 'm4v', 'ts', 'flv', 'wmv']);
-      const HOST_TTL_MS = 65000;
+      const HOST_HEARTBEAT_MS = 5000;   // 5s heartbeat for instant presence accuracy
+      const HOST_TTL_MS = 14000;        // 14s max staleness before immediate pruning
 
       /* PeerJS & P2P Chunk Streaming Constants */
-      const CHUNK_SIZE = 512 * 1024;          // 512 KB WebRTC binary slices
-      const WINDOW_SIZE = 4 * 1024 * 1024;    // 4 MB sliding flow-control window
-      const BUFFER_HIGH_WATER = 4 * 1024 * 1024;
+      const CHUNK_SIZE = 256 * 1024;            // 256 KB WebRTC binary slices
+      const BUFFER_HIGH_WATER = 1.5 * 1024 * 1024; // 1.5 MB SCTP backpressure cap
+      const BUFFER_LOW_WATER = 512 * 1024;      // 512 KB SCTP resume threshold
 
       /* Global Catalog & Host State */
       let serverTimeOffsetMs = 0;
       let latestHostsSnapshot = {};
       let onlineHosts = [];
       let allRootItems = [];
+      const deadPeerIds = new Set();
 
       let typeFilter = 'ALL';
       let hostFilterId = 'ALL';
-      let sortField = 'DEFAULT';
-      let sortDir = 'ASC';
-      let viewMode = localStorage.getItem(VIEW_MODE_STORAGE_KEY) === 'list' ? 'list' : 'grid';
-      let searchQuery = '';
-
-      /* Local Hosted Folder / Files State */
-      const sessionSuffix = Math.random().toString(36).substring(2, 7).toUpperCase();
-      const myHostId = `host_${Date.now().toString(36)}_${sessionSuffix.toLowerCase()}`;
-      let myHostName = localStorage.getItem(HOST_NAME_STORAGE_KEY) || detectDefaultDeviceName();
-      let isHosting = false;
-      let hostedFolderLabel = '';
-      let hostedCatalogItems = [];
-      const localFilesMap = new Map(); // fileKey -> File
-      let heartbeatInterval = null;
-      let disconnectRef = null;
-
-      /* PeerJS Node State */
-      let peer = null;
-      let myPeerId = '';
-
-      /* Active Series Folder State */
-      let activeSeriesFolder = null;
-      let activeSeriesEpisodes = [];
-
-      /* Active Player State */
-      let activePlayerList = [];
-      let activeIndex = -1;
-      let activeMedia = null;
-      let activeDuration = 0;
-      let activeSpeed = 1;
-      let streamOffsetSec = 0;
-      let lastSavedTick = 0;
-      let savedVol = 1;
-      let isMuted = false;
-
-      /* Active Remote P2P Stream Controller */
-      let activeStreamController = null;
-      let activeBlobUrl = null;
-
-      /* Exclusive Fullscreen State */
-      let isFullscreenMode = false;
-      let fsButtonVisible = true;
-      let orientationLockedByPlayer = false;
-
-      const SPEED_OPTIONS = [
-        { value: 0.5, label: '0.5x', sub: 'Slow' },
-        { value: 0.75, label: '0.75x', sub: 'Relaxed' },
-        { value: 1, label: '1x', sub: 'Normal' },
-        { value: 1.25, label: '1.25x', sub: 'Brisk' },
-        { value: 1.5, label: '1.5x', sub: 'Fast' },
-        { value: 2, label: '2x', sub: 'Double' }
-      ];
-
-      function detectDefaultDeviceName() {
-        const ua = navigator.userAgent || '';
-        if (/Android/i.test(ua)) return `Android-${sessionSuffix}`;
-        if (/iPhone/i.test(ua)) return `iPhone-${sessionSuffix}`;
-        if (/iPad/i.test(ua)) return `iPad-${sessionSuffix}`;
-        if (/Windows/i.test(ua)) return `Windows-${sessionSuffix}`;
-        if (/Macintosh|Mac OS X/i.test(ua)) return `Mac-${sessionSuffix}`;
-        if (/Linux/i.test(ua)) return `Linux-${sessionSuffix}`;
-        return `Device-${sessionSuffix}`;
-      }
-
+// ... existing code ... -->
       /* ============================================================
-         3. SMART FILENAME PARSER (TITLE, YEAR, RES, CODEC, AUDIO)
-         ============================================================ */
-      function parseMediaMetadata(rawFilename, isFolder = false) {
-        const extMatch = !isFolder ? rawFilename.match(/\.([a-zA-Z0-9]{2,5})$/) : null;
-        const ext = extMatch ? extMatch[1].toUpperCase() : '';
-        const base = !isFolder ? rawFilename.replace(/\.[^/.]+$/, '') : rawFilename;
-
-        let year = '';
-        const bracketYearMatch = base.match(/[\(\[]\s*(19[2-9]\d|20[0-2]\d)\s*[\)\]]/);
-        if (bracketYearMatch) {
-          year = bracketYearMatch[1];
-        }
-
-        const working = base.replace(/[._]+/g, ' ').replace(/\[[^\]]*\]/g, ' ').replace(/\s+/g, ' ').trim();
-
-        let seasonEp = '';
-        const seMatch = working.match(/\bS(\d{1,2})\s*E(\d{1,3})\b/i) || working.match(/\b(\d{1,2})x(\d{2})\b/i);
-        if (seMatch) {
-          seasonEp = `S${seMatch[1].padStart(2, '0')}·E${seMatch[2].padStart(2, '0')}`;
-        }
-
-        let res = '';
-        if (/\b(2160p|4K|UHD)\b/i.test(working)) res = '4K';
-        else if (/\b1440p\b/i.test(working)) res = '2K';
-        else if (/\b1080p\b/i.test(working)) res = '1080p';
-        else if (/\b720p\b/i.test(working)) res = '720p';
-        else if (/\b480p\b/i.test(working)) res = '480p';
-
-        let codec = '';
-        if (/\b(HDR10|HDR|DV|Dolby\s*Vision)\b/i.test(working)) codec = 'HDR';
-        else if (/\b(HEVC|x265|H\s*265)\b/i.test(working)) codec = 'HEVC';
-
-        let audioTag = '';
-        if (/\b(Dual\s*Audio|Multi\s*Audio)\b/i.test(working)) audioTag = 'DUAL';
-        else if (/\bHindi\b/i.test(working)) audioTag = 'HIN';
-        else if (/\bJapanese\b/i.test(working)) audioTag = 'JPN';
-        else if (/\bKorean\b/i.test(working)) audioTag = 'KOR';
-
-        if (!year) {
-          const allYears = [...working.matchAll(/\b(19[2-9]\d|20[0-2]\d)\b/g)];
-          if (allYears.length > 0) {
-            year = allYears[allYears.length - 1][1];
-          }
-        }
-
-        const releaseYear = year ? parseInt(year, 10) : 0;
-
-        let stripped = working
-          .replace(/\b(2160p|1440p|1080p|720p|480p|4K|UHD|WEB-?DL|WEBRip|BluRay|BRRip|BDRip|HDRip|DVDRip|HDTV|CAMRip|CAM|TS|HEVC|x265|x264|H264|H265|10bit|10-bit|8bit|AAC|AC3|DTS|DDP5\s*1|DD5\s*1|Atmos|TrueHD|Dual\s*Audio|Multi\s*Audio|ESub|ESubs|YIFY|RARBG|PSA|EVO|FGT|SPARKS|AMIABLE|EXTENDED|REMASTERED|UNRATED|DIRECTORS\s*CUT)\b/gi, ' ')
-          .replace(/\(\s*\)/g, ' ')
-          .replace(/\s+/g, ' ')
-          .trim();
-
-        if (year) {
-          const lastYearRegex = new RegExp(`\\(?\\b${year}\\b\\)?(?![\\s\\S]*\\b${year}\\b)`);
-          const withoutReleaseYear = stripped.replace(lastYearRegex, ' ').replace(/\(\s*\)/g, ' ').replace(/\s+/g, ' ').trim();
-          if (withoutReleaseYear.length >= 1) {
-            stripped = withoutReleaseYear;
-          }
-        }
-
-        const cleanName = stripped.length >= 1 ? stripped : working;
-        const specs = [year, res, audioTag, codec].filter(Boolean);
-
-        return {
-          cleanName,
-          year,
-          releaseYear,
-          res,
-          codec,
-          audioTag,
-          seasonEp,
-          ext,
-          specs
-        };
-      }
-
-      /* ============================================================
-         4. PROCEDURAL SQUIRCLE POSTERS (MOVIES & SERIES)
-         ============================================================ */
-      const POSTER_PALETTES = [
-        { c1: '#162f4f', c2: '#356a9c', accent: '#90cdf4' },
-        { c1: '#10233c', c2: '#2b5b88', accent: '#75b0e6' },
-        { c1: '#1b3658', c2: '#42769c', accent: '#bee3f8' },
-        { c1: '#132842', c2: '#316085', accent: '#8bbce8' },
-        { c1: '#1a2f4b', c2: '#44688e', accent: '#a3cef1' },
-        { c1: '#0e2239', c2: '#275580', accent: '#6aa9e3' }
-      ];
-
-      function hashString(str) {
-        let h = 2166136261;
-        for (let i = 0; i < str.length; i++) {
-          h ^= str.charCodeAt(i);
-          h = Math.imul(h, 16777619);
-        }
-        return h >>> 0;
-      }
-
-      function getMonogram(title) {
-        const words = title.replace(/[^a-zA-Z0-9\s]/g, '').trim().split(/\s+/).filter(Boolean);
-        if (words.length === 0) return 'SY';
-        if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
-        return (words[0][0] + words[1][0]).toUpperCase();
-      }
-
-      function buildCodedThumbnailSvg(item, epNumber = null) {
-        const meta = item.meta || parseMediaMetadata(item.name, item.type === 'folder');
-        const seed = hashString(`${meta.cleanName}_${item.hostName}`);
-        const pal = POSTER_PALETTES[seed % POSTER_PALETTES.length];
-        const patternType = seed % 3;
-        const isSeries = item.type === 'folder';
-        const mono = epNumber !== null ? `E${String(epNumber).padStart(2, '0')}` : getMonogram(meta.cleanName);
-
-        const topLeftBadge = epNumber !== null
-          ? (meta.seasonEp || `EP ${String(epNumber).padStart(2, '0')}`)
-          : (isSeries ? `${item.count || 0} EP` : (meta.res || meta.ext || 'HD'));
-
-        const topRightBadge = meta.year || (isSeries ? 'SERIES' : meta.ext);
-
-        let progressPct = 0;
-        if (item.type === 'file') {
-          const prog = getSavedProgress(item.hostId, item.fileKey);
-          if (prog && prog.pos > 10 && prog.dur > 0) {
-            progressPct = Math.min(100, Math.max(4, Math.round((prog.pos / prog.dur) * 100)));
-          }
-        }
-
-        let motifSvg = '';
-        if (patternType === 0) {
-          motifSvg = `
-            <circle cx="255" cy="22" r="82" fill="none" stroke="${pal.accent}" stroke-opacity="0.14" stroke-width="14"/>
-            <circle cx="255" cy="22" r="46" fill="none" stroke="${pal.accent}" stroke-opacity="0.18" stroke-width="5"/>
-          `;
-        } else if (patternType === 1) {
-          motifSvg = `
-            <path d="M-20 142 Q 95 58, 185 118 T 340 68 L 340 200 L -20 200 Z" fill="${pal.accent}" fill-opacity="0.12"/>
-            <path d="M-20 166 Q 115 96, 215 144 T 340 104 L 340 200 L -20 200 Z" fill="${pal.accent}" fill-opacity="0.09"/>
-          `;
-        } else {
-          motifSvg = `
-            <rect x="200" y="-20" width="122" height="122" rx="28" transform="rotate(22 200 -20)" fill="${pal.accent}" fill-opacity="0.1"/>
-            <rect x="225" y="16" width="96" height="96" rx="22" transform="rotate(22 225 16)" fill="none" stroke="${pal.accent}" stroke-opacity="0.2" stroke-width="2"/>
-          `;
-        }
-
-        const centerArtwork = isSeries
-          ? `
-            <rect x="128" y="48" width="64" height="14" rx="6" fill="#ffffff" fill-opacity="0.24"/>
-            <rect x="122" y="54" width="76" height="16" rx="7" fill="#ffffff" fill-opacity="0.38"/>
-            <path d="M116 70 C116 64 120 60 126 60 L145 60 L152 67 L194 67 C200 67 204 71 204 77 L204 112 C204 118 200 122 194 122 L126 122 C120 122 116 118 116 112 Z" fill="#ffffff" fill-opacity="0.94"/>
-            <polygon points="154,84 171,94 154,104" fill="${pal.c1}"/>
-          `
-          : `
-            <circle cx="160" cy="88" r="27" fill="#ffffff" fill-opacity="0.18"/>
-            <circle cx="160" cy="88" r="20" fill="#ffffff" fill-opacity="0.95"/>
-            <polygon points="155,79 170,88 155,97" fill="${pal.c1}"/>
-          `;
-
-        const progressBarSvg = progressPct > 0
-          ? `
-            <rect x="0" y="174" width="320" height="6" fill="#070b14" fill-opacity="0.65"/>
-            <rect x="0" y="174" width="${Math.round((progressPct / 100) * 320)}" height="6" fill="#75b0e6"/>
-          `
-          : '';
-
-        const gradId = `pg_${seed}`;
-        return `
-          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="${pal.c1}"/>
-                <stop offset="100%" stop-color="${pal.c2}"/>
-              </linearGradient>
-            </defs>
-            <rect width="320" height="180" fill="url(#${gradId})"/>
-            ${motifSvg}
-            <text x="16" y="158" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="44" font-weight="900" fill="#ffffff" fill-opacity="0.12" letter-spacing="-1">${escapeHtml(mono)}</text>
-            ${centerArtwork}
-            <rect x="13" y="13" width="66" height="23" rx="8" fill="#0c1320" fill-opacity="0.54"/>
-            <text x="46" y="28.5" text-anchor="middle" font-family="ui-monospace, Consolas, sans-serif" font-size="11" font-weight="800" fill="#edf2f8">${escapeHtml(topLeftBadge)}</text>
-            ${topRightBadge ? `
-              <rect x="245" y="13" width="62" height="23" rx="8" fill="#0c1320" fill-opacity="0.42"/>
-              <text x="276" y="28.5" text-anchor="middle" font-family="ui-monospace, Consolas, sans-serif" font-size="10.5" font-weight="800" fill="#bee3f8">${escapeHtml(topRightBadge)}</text>
-            ` : ''}
-            ${progressBarSvg}
-          </svg>
-        `;
-      }
-
-      function renderSignalBarsHtml(tier = 3) {
-        const cls = tier === 1 ? 's1' : (tier === 2 ? 's2' : 's3');
-        return `<span class="sig-bars ${cls}"><i></i><i></i><i></i></span>`;
-      }
-
-      function formatCompactBytes(bytes) {
-        if (!bytes || bytes <= 0) return '0 B';
-        const units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
-        const val = bytes / Math.pow(1024, i);
-        return `${val >= 100 || i === 0 ? Math.round(val) : val.toFixed(1)} ${units[i]}`;
-      }
-
-      /* ============================================================
-         5. PEERJS WEBRTC P2P NODE & HIGH-THROUGHPUT RANGE SERVER
+         5. PEERJS WEBRTC P2P NODE & MULTI-VIEWER RANGE SERVER
          ============================================================ */
       function initPeerNode() {
         if (typeof Peer === 'undefined') return;
+
+        if (peer && !peer.destroyed) {
+          try { peer.destroy(); } catch (e) {}
+        }
 
         const desiredPeerId = `sy-${myHostId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
         peer = new Peer(desiredPeerId, {
@@ -2185,120 +2069,159 @@
           }
         });
 
-        peer.on('error', () => {});
+        peer.on('error', (err) => {
+          if (err && err.type === 'peer-unavailable' && err.message) {
+            const match = String(err.message).match(/sy-[a-zA-Z0-9_-]+/);
+            if (match) {
+              markHostOfflineByPeerId(match[0]);
+            }
+          }
+        });
       }
 
       /**
-       * Packs a 12-byte header ([uint32 streamToken, float64 byteOffset]) + binary payload
-       * into a single zero-copy ArrayBuffer for WebRTC DataChannel transmission.
+       * Packs a 16-byte aligned header ([uint32 streamId, uint32 payloadLen, float64 byteOffset])
+       * + binary payload into a single ArrayBuffer for WebRTC DataChannel transmission.
        */
-      function packBinaryFrame(streamToken, byteOffset, sliceArrayBuffer) {
+      function packBinaryFrame(streamId, byteOffset, sliceArrayBuffer) {
         const payload = new Uint8Array(sliceArrayBuffer);
-        const frame = new ArrayBuffer(12 + payload.byteLength);
+        const frame = new ArrayBuffer(16 + payload.byteLength);
         const view = new DataView(frame);
-        view.setUint32(0, streamToken >>> 0, true);
-        view.setFloat64(4, byteOffset, true);
-        new Uint8Array(frame, 12).set(payload);
+        view.setUint32(0, streamId >>> 0, true);
+        view.setUint32(4, payload.byteLength >>> 0, true);
+        view.setFloat64(8, byteOffset, true);
+        new Uint8Array(frame, 16).set(payload);
         return frame;
       }
 
+      function waitForDataChannelDrain(dc, streamCtx) {
+        return new Promise((resolve) => {
+          if (!dc || dc.readyState !== 'open' || dc.bufferedAmount <= BUFFER_HIGH_WATER || streamCtx.aborted) {
+            resolve();
+            return;
+          }
+          try {
+            dc.bufferedAmountLowThreshold = BUFFER_LOW_WATER;
+          } catch (e) {}
+
+          let settled = false;
+          const finish = () => {
+            if (settled) return;
+            settled = true;
+            clearTimeout(timer);
+            try { dc.removeEventListener('bufferedamountlow', finish); } catch (e) {}
+            resolve();
+          };
+
+          const timer = setTimeout(finish, 25);
+          try {
+            dc.addEventListener('bufferedamountlow', finish, { once: true });
+          } catch (e) {}
+        });
+      }
+
       function handleIncomingViewerConnection(conn) {
-        const activeStreams = new Map(); // streamToken -> { aborted, ackOffset }
+        // Per-viewer stream map keyed by streamId so multiple concurrent viewers & seeks never collide
+        const activeStreams = new Map();
 
-        conn.on('data', async (msg) => {
-          if (!msg || typeof msg !== 'object') return;
-
-          if (msg.type === 'CANCEL_RANGE') {
-            const st = activeStreams.get(msg.streamToken);
-            if (st) st.aborted = true;
-            return;
+        const startRangeStream = async (msg) => {
+          const streamId = msg.streamId >>> 0;
+          const existing = activeStreams.get(streamId);
+          if (existing) {
+            existing.aborted = true;
           }
 
-          if (msg.type === 'WINDOW_ACK') {
-            const st = activeStreams.get(msg.streamToken);
-            if (st) st.ackOffset = Math.max(st.ackOffset, Number(msg.ackOffset || 0));
-            return;
-          }
+          const streamCtx = { aborted: false };
+          activeStreams.set(streamId, streamCtx);
 
-          if (msg.type === 'REQUEST_RANGE') {
-            const streamToken = msg.streamToken >>> 0;
-            const fileKey = msg.fileKey;
-            const file = localFilesMap.get(fileKey);
+          const fileKey = msg.fileKey;
+          const file = localFilesMap.get(fileKey);
 
-            if (!file) {
-              if (conn.open) {
-                conn.send({
-                  type: 'RANGE_ERROR',
-                  streamToken,
-                  message: 'File unavailable on host'
-                });
-              }
-              return;
-            }
-
-            const totalSize = file.size;
-            const startByte = Math.max(0, Math.min(totalSize, Math.floor(Number(msg.startByte || 0))));
-            const rawEnd = msg.endByte != null ? Math.floor(Number(msg.endByte)) : totalSize;
-            const endByte = Math.max(startByte, Math.min(totalSize, rawEnd));
-
-            const state = {
-              aborted: false,
-              ackOffset: startByte
-            };
-            activeStreams.set(streamToken, state);
-
+          if (!file) {
             if (conn.open) {
               conn.send({
-                type: 'RANGE_META',
-                streamToken,
-                fileKey,
-                startByte,
-                endByte,
-                totalSize,
-                mimeType: file.type || inferMimeFromName(file.name)
+                type: 'RANGE_ERROR',
+                streamId,
+                message: 'File unavailable'
               });
             }
+            activeStreams.delete(streamId);
+            return;
+          }
 
-            let cursor = startByte;
-            try {
-              while (cursor < endByte && !state.aborted && conn.open) {
-                // Sliding window backpressure so we stay fast without overflowing SCTP buffer
-                const dc = conn.dataChannel;
-                const unackedBytes = cursor - state.ackOffset;
-                if ((dc && dc.bufferedAmount > BUFFER_HIGH_WATER) || unackedBytes > WINDOW_SIZE * 2) {
-                  await new Promise((r) => setTimeout(r, 18));
-                  continue;
-                }
+          const totalSize = file.size;
+          const startByte = Math.max(0, Math.min(totalSize, Math.floor(Number(msg.startByte || 0))));
+          const rawEnd = msg.endByte != null ? Math.floor(Number(msg.endByte)) : totalSize;
+          const endByte = Math.max(startByte, Math.min(totalSize, rawEnd));
 
-                const sliceEnd = Math.min(cursor + CHUNK_SIZE, endByte);
-                const sliceBuf = await file.slice(cursor, sliceEnd).arrayBuffer();
+          if (conn.open) {
+            conn.send({
+              type: 'RANGE_META',
+              streamId,
+              fileKey,
+              startByte,
+              endByte,
+              totalSize,
+              mimeType: file.type || inferMimeFromName(file.name)
+            });
+          }
 
-                if (state.aborted || !conn.open) break;
-
-                const packed = packBinaryFrame(streamToken, cursor, sliceBuf);
-                conn.send(packed);
-                cursor = sliceEnd;
+          let cursor = startByte;
+          try {
+            while (cursor < endByte && !streamCtx.aborted && conn.open) {
+              const dc = conn.dataChannel;
+              if (dc && dc.bufferedAmount > BUFFER_HIGH_WATER) {
+                await waitForDataChannelDrain(dc, streamCtx);
+                if (streamCtx.aborted || !conn.open) break;
               }
 
-              if (!state.aborted && conn.open) {
-                conn.send({
-                  type: 'RANGE_END',
-                  streamToken,
-                  endByte: cursor,
-                  totalSize
-                });
-              }
-            } catch (err) {
-              if (conn.open) {
-                conn.send({
-                  type: 'RANGE_ERROR',
-                  streamToken,
-                  message: 'Host read interrupted'
-                });
-              }
-            } finally {
-              activeStreams.delete(streamToken);
+              const sliceEnd = Math.min(cursor + CHUNK_SIZE, endByte);
+              const sliceBuf = await file.slice(cursor, sliceEnd).arrayBuffer();
+
+              if (streamCtx.aborted || !conn.open) break;
+
+              const packed = packBinaryFrame(streamId, cursor, sliceBuf);
+              conn.send(packed);
+              cursor = sliceEnd;
             }
+
+            if (!streamCtx.aborted && conn.open) {
+              conn.send({
+                type: 'RANGE_END',
+                streamId,
+                endByte: cursor,
+                totalSize
+              });
+            }
+          } catch (err) {
+            if (!streamCtx.aborted && conn.open) {
+              conn.send({
+                type: 'RANGE_ERROR',
+                streamId,
+                message: 'Read interrupted'
+              });
+            }
+          } finally {
+            if (activeStreams.get(streamId) === streamCtx) {
+              activeStreams.delete(streamId);
+            }
+          }
+        };
+
+        conn.on('data', (msg) => {
+          if (!msg || typeof msg !== 'object') return;
+
+          if (msg.type === 'STOP_STREAM') {
+            const st = activeStreams.get(msg.streamId >>> 0);
+            if (st) {
+              st.aborted = true;
+              activeStreams.delete(msg.streamId >>> 0);
+            }
+            return;
+          }
+
+          if (msg.type === 'GET_RANGE' || msg.type === 'SEEK_STREAM') {
+            startRangeStream(msg);
           }
         });
 
@@ -2538,6 +2461,10 @@
       async function publishHostCatalogToDb() {
         if (!isHosting) return;
 
+        if (!peer || peer.destroyed) {
+          initPeerNode();
+        }
+
         const hostRef = db.ref(`${DB_HOSTS_PATH}/${myHostId}`);
         if (disconnectRef) {
           try { await disconnectRef.cancel(); } catch (e) {}
@@ -2554,7 +2481,6 @@
           items: hostedCatalogItems
         };
 
-        // Update local snapshot immediately so host sees own library with 0ms delay
         latestHostsSnapshot[myHostId] = {
           ...payload,
           lastSeen: getServerNowMs()
@@ -2577,7 +2503,7 @@
             peerId: myPeerId || '',
             lastSeen: firebase.database.ServerValue.TIMESTAMP
           }).catch(() => {});
-        }, 20000);
+        }, HOST_HEARTBEAT_MS);
       }
 
       function stopHostHeartbeat() {
@@ -2585,6 +2511,26 @@
           clearInterval(heartbeatInterval);
           heartbeatInterval = null;
         }
+      }
+
+      function immediateDisconnectCleanup() {
+        if (!isHosting) return;
+        try {
+          if (peer && !peer.destroyed) {
+            peer.destroy();
+          }
+        } catch (e) {}
+
+        try {
+          db.ref(`${DB_HOSTS_PATH}/${myHostId}`).remove();
+        } catch (e) {}
+
+        try {
+          fetch(`${RTDB_BASE_URL}/${DB_HOSTS_PATH}/${encodeURIComponent(myHostId)}.json`, {
+            method: 'DELETE',
+            keepalive: true
+          });
+        } catch (e) {}
       }
 
       async function stopHosting() {
@@ -2610,18 +2556,19 @@
             disconnectRef = null;
           }
           await db.ref(`${DB_HOSTS_PATH}/${myHostId}`).remove();
+          fetch(`${RTDB_BASE_URL}/${DB_HOSTS_PATH}/${encodeURIComponent(myHostId)}.json`, {
+            method: 'DELETE',
+            keepalive: true
+          }).catch(() => {});
         } catch (e) {}
 
+        // Re-initialize fresh PeerJS client node for watching others
+        initPeerNode();
         showToast('Stopped hosting');
       }
 
-      window.addEventListener('beforeunload', () => {
-        if (isHosting) {
-          try {
-            db.ref(`${DB_HOSTS_PATH}/${myHostId}`).remove();
-          } catch (e) {}
-        }
-      });
+      window.addEventListener('beforeunload', immediateDisconnectCleanup);
+      window.addEventListener('pagehide', immediateDisconnectCleanup);
 
       /* Host Display Name Modal Editor */
       function openHostNamePopup() {
@@ -2663,10 +2610,16 @@
       }
 
       /* ============================================================
-         7. REAL-TIME FIREBASE GLOBAL CATALOG LISTENER
+         7. REAL-TIME FIREBASE GLOBAL CATALOG & INSTANT PRUNING
          ============================================================ */
       db.ref('.info/serverTimeOffset').on('value', (snap) => {
         serverTimeOffsetMs = snap.val() || 0;
+      });
+
+      db.ref('.info/connected').on('value', (snap) => {
+        if (snap.val() === true && isHosting) {
+          publishHostCatalogToDb();
+        }
       });
 
       function getServerNowMs() {
@@ -2678,7 +2631,24 @@
         reconcileGlobalHosts();
       });
 
-      setInterval(reconcileGlobalHosts, 15000);
+      // Fast 2.5-second sweep prunes any host stale > 14s immediately
+      setInterval(reconcileGlobalHosts, 2500);
+
+      function markHostOfflineByPeerId(peerId) {
+        if (!peerId) return;
+        deadPeerIds.add(peerId);
+        let removedAny = false;
+        Object.entries(latestHostsSnapshot).forEach(([key, host]) => {
+          if (host && host.peerId === peerId && (host.id || key) !== myHostId) {
+            delete latestHostsSnapshot[key];
+            db.ref(`${DB_HOSTS_PATH}/${host.id || key}`).remove().catch(() => {});
+            removedAny = true;
+          }
+        });
+        if (removedAny) {
+          reconcileGlobalHosts();
+        }
+      }
 
       function reconcileGlobalHosts() {
         const nowMs = getServerNowMs();
@@ -2690,15 +2660,17 @@
           if (!host || typeof host !== 'object') return;
           const hostId = host.id || key;
           const lastSeen = Number(host.lastSeen || 0);
+          const peerId = host.peerId || '';
 
-          // Prune stale disconnected hosts (> 65s since heartbeat)
-          if (hostId !== myHostId && lastSeen > 0 && (nowMs - lastSeen) > HOST_TTL_MS) {
-            db.ref(`${DB_HOSTS_PATH}/${hostId}`).remove().catch(() => {});
-            return;
+          if (hostId !== myHostId) {
+            if ((peerId && deadPeerIds.has(peerId)) || (lastSeen > 0 && (nowMs - lastSeen) > HOST_TTL_MS)) {
+              delete latestHostsSnapshot[key];
+              db.ref(`${DB_HOSTS_PATH}/${hostId}`).remove().catch(() => {});
+              return;
+            }
           }
 
           const hostName = host.name || hostId;
-          const peerId = host.peerId || '';
           const rawItems = Array.isArray(host.items) ? host.items : [];
 
           activeList.push({
@@ -2802,13 +2774,14 @@
         if (!el) return;
 
         if (onlineHosts.length === 0) {
-          el.innerHTML = `<span class="mono">0 HOSTS</span>`;
+          el.innerHTML = `<span class="status-dot off"></span><span class="mono">0 HOSTS</span>`;
           return;
         }
 
         const totalVideos = allRootItems.reduce((sum, item) => sum + (item.type === 'folder' ? (item.count || 0) : 1), 0);
         const hostLabel = onlineHosts.length === 1 ? onlineHosts[0].name : `${onlineHosts.length} HOSTS`;
         el.innerHTML = `
+          <span class="status-dot"></span>
           <span class="mono">${escapeHtml(hostLabel)} · ${totalVideos} VID</span>
           ${renderSignalBarsHtml(3)}
         `;
@@ -2820,7 +2793,7 @@
         if (hostFilterId !== 'ALL' && !onlineHosts.some((h) => h.id === hostFilterId)) {
           hostFilterId = 'ALL';
         }
-        const opts = [`<option value="ALL">All Hosts</option>`].concat(
+        const opts = [`<option value="ALL">All Devices</option>`].concat(
           onlineHosts.map((h) => `<option value="${escapeHtml(h.id)}">${escapeHtml(h.name)}</option>`)
         );
         sel.innerHTML = opts.join('');
@@ -2828,6 +2801,7 @@
       }
 
       function refreshAllCatalog() {
+        deadPeerIds.clear();
         if (isHosting) {
           publishHostCatalogToDb();
         }
@@ -3265,12 +3239,12 @@
       }
 
       function playNextEpisode() {
-        if (!isPlayingSeriesFolder() || activeIndex >= activePlayerList.length - 1) return;
-        openMediaAtIndex(activeIndex + 1, false);
-      }
-
-      function setLoader(show) {
+      function setLoader(show, telemetryText = '') {
         document.getElementById('loaderBox').classList.toggle('show', show);
+        const telEl = document.getElementById('loaderTelemetry');
+        if (telEl) {
+          telEl.textContent = show ? telemetryText : '';
+        }
       }
 
       function updateQualityBadge(label) {
@@ -3350,6 +3324,10 @@
           if (total > 0) {
             const pct = Math.min(100, Math.max(0, (current / total) * 100));
             document.getElementById('seekProgress').style.width = `${pct}%`;
+          }
+
+          if (activeStreamController && typeof activeStreamController.onTimeUpdate === 'function') {
+            activeStreamController.onTimeUpdate(current);
           }
 
           if (activeMedia && Math.abs(current - lastSavedTick) >= 5) {
@@ -3435,12 +3413,16 @@
 
       /**
        * Dual-Pipeline P2P Streamer:
-       * 1) Progressive Fragmented MP4 via MP4Box.js + MediaSource (SourceBuffer) with byte-range seeking
-       * 2) High-throughput windowed binary chunk transfer + progressive Blob fallback for MKV/AVI/WebM
+       * 1) MP4/M4V/MOV: Fetches initial 512KB + auto trailing 2MB moov probe if moov is at EOF,
+       *    then streams fragmented segments into MediaSource with random-access byte-range seeking
+       *    and automatic 45s behind-playhead buffer eviction.
+       * 2) WebM: Real-time progressive MediaSource SourceBuffer streaming.
+       * 3) MKV/AVI/Other: High-speed 256KB chunked transfer with live MB/s telemetry.
        */
       function startRemoteP2PStream(item, video, initialStartSec) {
         if (!peer || !item.peerId) {
           setLoader(false);
+          markHostOfflineByPeerId(item.peerId);
           showToast('Host offline');
           return;
         }
@@ -3449,6 +3431,8 @@
         const isIsoBmffCandidate = ['mp4', 'm4v', 'mov'].includes(ext) &&
           typeof MP4Box !== 'undefined' &&
           'MediaSource' in window;
+        const isWebmMseCandidate = ext === 'webm' && 'MediaSource' in window &&
+          (MediaSource.isTypeSupported('video/webm; codecs="vp9,opus"') || MediaSource.isTypeSupported('video/webm; codecs="vp8,vorbis"'));
 
         const conn = peer.connect(item.peerId, {
           reliable: true,
@@ -3456,60 +3440,112 @@
         });
 
         let destroyed = false;
-        let currentStreamToken = (Math.floor(Math.random() * 0x7fffffff) + 1) >>> 0;
+        let connOpened = false;
         let totalFileSize = item.size || 0;
         let streamMime = item.mimeType || inferMimeFromName(item.name);
 
+        // Connection timeout (6s) -> immediate offline pruning if host is unreachable
+        const connectTimeout = setTimeout(() => {
+          if (!connOpened && !destroyed) {
+            setLoader(false);
+            markHostOfflineByPeerId(item.peerId);
+            showToast('Host offline');
+            try { conn.close(); } catch (e) {}
+          }
+        }, 6000);
+
+        // Stream IDs: 1 = initial 512KB probe, 2 = trailing 2MB moov probe, 10+ = main/seek streams
+        let mainStreamId = 10;
+        const INIT_PROBE_ID = 1;
+        const TAIL_PROBE_ID = 2;
+        const FALLBACK_STREAM_ID = 3;
+
         // MP4Box + MSE State
         let mseMode = isIsoBmffCandidate;
+        let webmMseMode = !mseMode && isWebmMseCandidate;
         let mediaSource = null;
         let mp4boxfile = null;
         const sourceBuffers = new Map(); // trackId -> { sb, queue }
+        let webmSb = null;
+        const webmQueue = [];
         let mseInitialized = false;
+        let tailProbeIssued = false;
         let pendingSeekSec = initialStartSec > 0 ? initialStartSec : null;
-        let expectedNextByte = 0;
 
-        // Blob Fallback State
+        // Blob Fallback & Throughput Telemetry State
         const fallbackChunks = [];
         let fallbackReceivedBytes = 0;
         let fallbackApplied = false;
+        let speedWindowBytes = 0;
+        let speedWindowStart = performance.now();
+        let lastSpeedLabel = '';
 
-        function nextToken() {
-          currentStreamToken = ((currentStreamToken + 1) & 0x7fffffff) || 1;
-          return currentStreamToken;
+        function recordThroughput(byteLen) {
+          speedWindowBytes += byteLen;
+          const now = performance.now();
+          const elapsedSec = (now - speedWindowStart) / 1000;
+          if (elapsedSec >= 0.45) {
+            const mbps = (speedWindowBytes / (1024 * 1024)) / elapsedSec;
+            lastSpeedLabel = `${mbps.toFixed(1)} MB/s`;
+            speedWindowBytes = 0;
+            speedWindowStart = now;
+          }
+          if (document.getElementById('loaderBox').classList.contains('show')) {
+            const pct = totalFileSize > 0 && !mseMode && !webmMseMode
+              ? ` · ${Math.min(99, Math.round((fallbackReceivedBytes / totalFileSize) * 100))}%`
+              : '';
+            const text = `${lastSpeedLabel}${pct}`.replace(/^ · /, '');
+            if (text) setLoader(true, text);
+          }
         }
 
-        function requestByteRange(startByte, endByte = null) {
+        function requestRange(streamId, startByte, endByte) {
           if (destroyed || !conn.open) return;
-          const token = nextToken();
-          expectedNextByte = startByte;
           conn.send({
-            type: 'REQUEST_RANGE',
-            streamToken: token,
+            type: 'GET_RANGE',
+            streamId,
             fileKey: item.fileKey,
             startByte,
             endByte
           });
-          return token;
+        }
+
+        function sendSeekStream(streamId, startByte, endByte) {
+          if (destroyed || !conn.open) return;
+          conn.send({
+            type: 'SEEK_STREAM',
+            streamId,
+            fileKey: item.fileKey,
+            startByte,
+            endByte
+          });
+        }
+
+        function sendStopStream(streamId) {
+          if (!conn.open) return;
+          try {
+            conn.send({ type: 'STOP_STREAM', streamId });
+          } catch (e) {}
         }
 
         function switchToBlobFallback() {
-          if (!mseMode || destroyed) return;
+          if ((!mseMode && !webmMseMode) || destroyed) return;
           mseMode = false;
+          webmMseMode = false;
           try {
             if (activeBlobUrl) URL.revokeObjectURL(activeBlobUrl);
           } catch (e) {}
           activeBlobUrl = null;
           sourceBuffers.clear();
+          webmQueue.length = 0;
           fallbackChunks.length = 0;
           fallbackReceivedBytes = 0;
           fallbackApplied = false;
 
-          // Restart clean full-file windowed binary transfer from byte 0
-          if (conn.open) {
-            conn.send({ type: 'CANCEL_RANGE', streamToken: currentStreamToken });
-            requestByteRange(0, null);
-          }
+          sendStopStream(INIT_PROBE_ID);
+          sendStopStream(TAIL_PROBE_ID);
+          sendStopStream(mainStreamId);
+          requestRange(FALLBACK_STREAM_ID, 0, totalFileSize || null);
         }
 
         function applyFallbackBlob(isFinal) {
@@ -3545,15 +3581,70 @@
             entry.sb.appendBuffer(seg);
           } catch (err) {
             if (err && err.name === 'QuotaExceededError') {
-              // Evict already-watched buffer behind playhead
               const cur = video.currentTime || 0;
-              if (cur > 20) {
+              if (cur > 25) {
                 try {
-                  entry.sb.remove(0, cur - 10);
+                  entry.sb.remove(0, cur - 15);
                   return;
                 } catch (e) {}
               }
             }
+            switchToBlobFallback();
+          }
+        }
+
+        function flushWebmQueue() {
+          if (!webmSb || webmSb.updating || webmQueue.length === 0) return;
+          if (!mediaSource || mediaSource.readyState !== 'open') return;
+          try {
+            webmSb.appendBuffer(webmQueue.shift());
+            if (video.paused && video.readyState >= 2) {
+              setLoader(false);
+              video.play().catch(() => {});
+            }
+          } catch (err) {
+            switchToBlobFallback();
+          }
+        }
+
+        function evictOldBuffer(currentSec) {
+          if (!mediaSource || mediaSource.readyState !== 'open' || currentSec <= 55) return;
+          const evictEnd = currentSec - 45;
+          if (mseMode) {
+            sourceBuffers.forEach((entry) => {
+              if (!entry.sb.updating && entry.sb.buffered && entry.sb.buffered.length > 0) {
+                if (entry.sb.buffered.start(0) < evictEnd - 5) {
+                  try { entry.sb.remove(0, evictEnd); } catch (e) {}
+                }
+              }
+            });
+          } else if (webmMseMode && webmSb && !webmSb.updating && webmSb.buffered && webmSb.buffered.length > 0) {
+            if (webmSb.buffered.start(0) < evictEnd - 5) {
+              try { webmSb.remove(0, evictEnd); } catch (e) {}
+            }
+          }
+        }
+
+        function initWebmMsePipeline() {
+          try {
+            const chosenWebm = MediaSource.isTypeSupported('video/webm; codecs="vp9,opus"')
+              ? 'video/webm; codecs="vp9,opus"'
+              : 'video/webm; codecs="vp8,vorbis"';
+            mediaSource = new MediaSource();
+            activeBlobUrl = URL.createObjectURL(mediaSource);
+            video.src = activeBlobUrl;
+            video.playbackRate = activeSpeed;
+            mediaSource.addEventListener('sourceopen', () => {
+              if (destroyed || !webmMseMode) return;
+              try {
+                webmSb = mediaSource.addSourceBuffer(chosenWebm);
+                webmSb.addEventListener('updateend', flushWebmQueue);
+                flushWebmQueue();
+              } catch (e) {
+                switchToBlobFallback();
+              }
+            }, { once: true });
+          } catch (e) {
             switchToBlobFallback();
           }
         }
@@ -3601,11 +3692,11 @@
                   }
 
                   for (const track of tracksToUse) {
-                    const mimeCodec = `video/mp4; codecs="${track.codec}"`;
-                    const audioMimeCodec = `audio/mp4; codecs="${track.codec}"`;
+                    const videoCodec = `video/mp4; codecs="${track.codec}"`;
+                    const audioCodec = `audio/mp4; codecs="${track.codec}"`;
                     const chosenMime = track.type === 'audio'
-                      ? (MediaSource.isTypeSupported(audioMimeCodec) ? audioMimeCodec : mimeCodec)
-                      : mimeCodec;
+                      ? (MediaSource.isTypeSupported(audioCodec) ? audioCodec : videoCodec)
+                      : videoCodec;
 
                     if (!MediaSource.isTypeSupported(chosenMime)) {
                       switchToBlobFallback();
@@ -3615,7 +3706,7 @@
                     const sb = mediaSource.addSourceBuffer(chosenMime);
                     sourceBuffers.set(track.id, { sb, queue: [] });
                     sb.addEventListener('updateend', () => flushSourceBuffer(track.id));
-                    mp4boxfile.setSegmentOptions(track.id, sb, { nbSamples: 60 });
+                    mp4boxfile.setSegmentOptions(track.id, sb, { nbSamples: 45 });
                   }
 
                   const initSegs = mp4boxfile.initializeSegmentation();
@@ -3629,11 +3720,16 @@
 
                   mp4boxfile.start();
 
+                  // Start main media payload stream from resume offset or first media sample
                   if (pendingSeekSec !== null && pendingSeekSec > 2) {
                     const s = pendingSeekSec;
                     pendingSeekSec = null;
                     seekMseStream(s);
                   } else {
+                    const startSeek = mp4boxfile.seek(0, true);
+                    const startOffset = startSeek && typeof startSeek.offset === 'number' ? startSeek.offset : 0;
+                    mainStreamId += 1;
+                    requestRange(mainStreamId, startOffset, totalFileSize || null);
                     video.play().catch(() => {});
                   }
                 } catch (err) {
@@ -3648,7 +3744,7 @@
               }
             };
 
-            mp4boxfile.onSegment = (id, user, buffer, sampleNumber, last) => {
+            mp4boxfile.onSegment = (id, user, buffer, sampleNumber) => {
               if (destroyed || !mseMode) return;
               const entry = sourceBuffers.get(id);
               if (entry) {
@@ -3657,6 +3753,7 @@
               }
               mp4boxfile.releaseUsedSamples(id, sampleNumber);
               if (video.paused && video.readyState >= 2) {
+                setLoader(false);
                 video.play().catch(() => {});
               }
             };
@@ -3667,13 +3764,15 @@
 
         function seekMseStream(targetSec) {
           if (!mseMode || !mp4boxfile || !mseInitialized) return false;
-          setLoader(true);
+          setLoader(true, lastSpeedLabel);
           try {
             const seekInfo = mp4boxfile.seek(targetSec, true);
             if (!seekInfo || typeof seekInfo.offset !== 'number') return false;
 
-            // Cancel previous stream and flush pending source buffers
-            conn.send({ type: 'CANCEL_RANGE', streamToken: currentStreamToken });
+            const prevMainId = mainStreamId;
+            mainStreamId += 1;
+            sendStopStream(prevMainId);
+
             sourceBuffers.forEach((entry) => {
               entry.queue.length = 0;
               if (!entry.sb.updating && mediaSource && mediaSource.readyState === 'open') {
@@ -3682,7 +3781,7 @@
             });
 
             video.currentTime = seekInfo.time || targetSec;
-            requestByteRange(seekInfo.offset, null);
+            sendSeekStream(mainStreamId, seekInfo.offset, totalFileSize || null);
             return true;
           } catch (err) {
             return false;
@@ -3691,60 +3790,77 @@
 
         if (mseMode) {
           initMsePipeline();
+        } else if (webmMseMode) {
+          initWebmMsePipeline();
         }
 
         conn.on('open', () => {
           if (destroyed) return;
-          requestByteRange(0, null);
+          connOpened = true;
+          clearTimeout(connectTimeout);
+
+          if (mseMode) {
+            // Fetch initial 512KB header probe
+            const initEnd = totalFileSize > 0 ? Math.min(totalFileSize, 512 * 1024) : 512 * 1024;
+            requestRange(INIT_PROBE_ID, 0, initEnd);
+          } else if (webmMseMode) {
+            mainStreamId += 1;
+            requestRange(mainStreamId, 0, totalFileSize || null);
+          } else {
+            requestRange(FALLBACK_STREAM_ID, 0, totalFileSize || null);
+          }
         });
 
         conn.on('data', (packet) => {
           if (destroyed) return;
 
-          // Binary Frame: [uint32 streamToken, float64 byteOffset, ...payload]
+          // 16-byte aligned binary header: [uint32 streamId, uint32 payloadLen, float64 byteOffset, ...payload]
           if (packet instanceof ArrayBuffer || ArrayBuffer.isView(packet)) {
             const rawBuf = packet instanceof ArrayBuffer
               ? packet
               : packet.buffer.slice(packet.byteOffset, packet.byteOffset + packet.byteLength);
 
-            if (rawBuf.byteLength <= 12) return;
+            if (rawBuf.byteLength <= 16) return;
             const headerView = new DataView(rawBuf);
-            const pktToken = headerView.getUint32(0, true);
-            const byteOffset = headerView.getFloat64(4, true);
+            const pktStreamId = headerView.getUint32(0, true);
+            const byteOffset = headerView.getFloat64(8, true);
 
-            if (pktToken !== currentStreamToken) return;
+            const isExpectedStream =
+              pktStreamId === INIT_PROBE_ID ||
+              pktStreamId === TAIL_PROBE_ID ||
+              pktStreamId === FALLBACK_STREAM_ID ||
+              pktStreamId === mainStreamId;
 
-            const chunkSlice = rawBuf.slice(12);
-            const nextOffset = byteOffset + chunkSlice.byteLength;
+            if (!isExpectedStream) return;
 
-            // Send sliding window acknowledgment every 2 MB
-            if (conn.open && (nextOffset - expectedNextByte >= 2 * 1024 * 1024 || nextOffset >= totalFileSize)) {
-              expectedNextByte = nextOffset;
-              conn.send({
-                type: 'WINDOW_ACK',
-                streamToken: pktToken,
-                ackOffset: nextOffset
-              });
-            }
+            const chunkSlice = rawBuf.slice(16);
+            recordThroughput(chunkSlice.byteLength);
 
             if (mseMode && mp4boxfile) {
               try {
                 chunkSlice.fileStart = byteOffset;
                 const nextNeededOffset = mp4boxfile.appendBuffer(chunkSlice);
-                // If moov atom is located at the end of the file, jump immediately to fetch moov
-                if (!mseInitialized && typeof nextNeededOffset === 'number' && nextNeededOffset > nextOffset + CHUNK_SIZE) {
-                  conn.send({ type: 'CANCEL_RANGE', streamToken: currentStreamToken });
-                  requestByteRange(nextNeededOffset, null);
+                // If MP4Box reports moov is near EOF, fetch trailing 2MB immediately
+                if (
+                  !mseInitialized &&
+                  !tailProbeIssued &&
+                  totalFileSize > 512 * 1024 &&
+                  typeof nextNeededOffset === 'number' &&
+                  nextNeededOffset > 512 * 1024
+                ) {
+                  tailProbeIssued = true;
+                  const tailStart = Math.max(512 * 1024, Math.min(nextNeededOffset - 65536, totalFileSize - 2 * 1024 * 1024));
+                  requestRange(TAIL_PROBE_ID, tailStart, totalFileSize);
                 }
               } catch (err) {
                 switchToBlobFallback();
               }
+            } else if (webmMseMode) {
+              webmQueue.push(chunkSlice);
+              flushWebmQueue();
             } else {
               fallbackChunks.push(chunkSlice);
               fallbackReceivedBytes += chunkSlice.byteLength;
-              if (!fallbackApplied && fallbackReceivedBytes >= 6 * 1024 * 1024 && ext === 'webm') {
-                applyFallbackBlob(false);
-              }
             }
             return;
           }
@@ -3752,41 +3868,60 @@
           // JSON Control Frame
           if (packet && typeof packet === 'object') {
             if (packet.type === 'RANGE_META') {
-              if (packet.streamToken !== currentStreamToken) return;
               totalFileSize = packet.totalSize || totalFileSize;
               streamMime = packet.mimeType || streamMime;
               return;
             }
 
             if (packet.type === 'RANGE_END') {
-              if (packet.streamToken !== currentStreamToken) return;
               if (mseMode && mp4boxfile) {
-                try { mp4boxfile.flush(); } catch (e) {}
-                // If moov was at EOF and now ready, stream movie body from byte 0 (or seek offset)
-                if (mseInitialized && expectedNextByte > totalFileSize * 0.5 && video.currentTime < 1) {
-                  requestByteRange(0, null);
-                } else if (mediaSource && mediaSource.readyState === 'open') {
-                  const tryEnd = () => {
-                    let anyUpdating = false;
-                    sourceBuffers.forEach((entry) => {
-                      if (entry.sb.updating || entry.queue.length > 0) anyUpdating = true;
-                    });
-                    if (!anyUpdating && mediaSource.readyState === 'open') {
-                      try { mediaSource.endOfStream(); } catch (e) {}
-                    } else if (!destroyed) {
-                      setTimeout(tryEnd, 120);
-                    }
-                  };
-                  tryEnd();
+                // If initial 512KB probe finished and moov wasn't at start, automatically fetch trailing 2MB
+                if (packet.streamId === INIT_PROBE_ID && !mseInitialized && !tailProbeIssued && totalFileSize > 512 * 1024) {
+                  tailProbeIssued = true;
+                  const tailStart = Math.max(512 * 1024, totalFileSize - 2 * 1024 * 1024);
+                  requestRange(TAIL_PROBE_ID, tailStart, totalFileSize);
+                  return;
                 }
-              } else if (!fallbackApplied) {
+
+                // If trailing 2MB probe finished and moov STILL hasn't initialized (e.g. huge >2MB moov), fallback cleanly
+                if (packet.streamId === TAIL_PROBE_ID && !mseInitialized) {
+                  switchToBlobFallback();
+                  return;
+                }
+
+                if (packet.streamId === mainStreamId) {
+                  try { mp4boxfile.flush(); } catch (e) {}
+                  if (mediaSource && mediaSource.readyState === 'open') {
+                    const tryEnd = () => {
+                      let anyUpdating = false;
+                      sourceBuffers.forEach((entry) => {
+                        if (entry.sb.updating || entry.queue.length > 0) anyUpdating = true;
+                      });
+                      if (!anyUpdating && mediaSource.readyState === 'open') {
+                        try { mediaSource.endOfStream(); } catch (e) {}
+                      } else if (!destroyed) {
+                        setTimeout(tryEnd, 120);
+                      }
+                    };
+                    tryEnd();
+                  }
+                }
+              } else if (webmMseMode && packet.streamId === mainStreamId) {
+                const tryEndWebm = () => {
+                  if (webmSb && (webmSb.updating || webmQueue.length > 0) && !destroyed) {
+                    setTimeout(tryEndWebm, 120);
+                  } else if (mediaSource && mediaSource.readyState === 'open') {
+                    try { mediaSource.endOfStream(); } catch (e) {}
+                  }
+                };
+                tryEndWebm();
+              } else if (!fallbackApplied && packet.streamId === FALLBACK_STREAM_ID) {
                 applyFallbackBlob(true);
               }
               return;
             }
 
             if (packet.type === 'RANGE_ERROR') {
-              if (packet.streamToken !== currentStreamToken) return;
               setLoader(false);
               showToast(packet.message || 'Stream error');
             }
@@ -3794,14 +3929,17 @@
         });
 
         conn.on('error', () => {
+          clearTimeout(connectTimeout);
           if (!destroyed) {
             setLoader(false);
-            showToast('Host unreachable');
+            markHostOfflineByPeerId(item.peerId);
+            showToast('Host offline');
           }
         });
 
         conn.on('close', () => {
-          if (!destroyed && !mseMode && !fallbackApplied && fallbackChunks.length > 0) {
+          clearTimeout(connectTimeout);
+          if (!destroyed && !mseMode && !webmMseMode && !fallbackApplied && fallbackChunks.length > 0) {
             applyFallbackBlob(false);
           }
         });
@@ -3813,15 +3951,23 @@
             }
             return false;
           },
+          onTimeUpdate(currentSec) {
+            evictOldBuffer(currentSec);
+          },
           destroy() {
             destroyed = true;
+            clearTimeout(connectTimeout);
             try {
               if (conn.open) {
-                conn.send({ type: 'CANCEL_RANGE', streamToken: currentStreamToken });
+                sendStopStream(INIT_PROBE_ID);
+                sendStopStream(TAIL_PROBE_ID);
+                sendStopStream(FALLBACK_STREAM_ID);
+                sendStopStream(mainStreamId);
               }
               conn.close();
             } catch (e) {}
             sourceBuffers.clear();
+            webmQueue.length = 0;
           }
         };
       }
