@@ -1,7 +1,0 @@
-# Cloudflare Pages project configuration (used by `wrangler pages dev` / `wrangler pages deploy`)
-name = "stream-yours"
-pages_build_output_dir = "./dist"
-compatibility_date = "2026-11-01"
-
-# Optional TURN relay secrets are NOT stored here. Add them in the dashboard
-# (Pages → stream-yours → Settings → Variables and Secrets) or locally in a .dev.vars file.
