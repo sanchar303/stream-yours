@@ -1,7 +1,0 @@
-Third-party files shipped with Stream Yours'
-
-mp4box-0.5.2.all.min.js — MP4Box.js (https://github.com/gpac/mp4box.js)
-  Copyright (c) Telecom ParisTech/TSI/MM/GPAC Cyril Concolato. BSD-3-Clause License.
-
-qrcode-1.4.4.min.js — qrcode-generator (https://github.com/kazuhikoarase/qrcode-generator)
-  Copyright (c) 2009 Kazuhiko Arase. MIT License.
