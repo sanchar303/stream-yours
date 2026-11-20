@@ -1972,3 +1972,16 @@ a:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* Subtitle appearance (native text tracks) */
+video::cue {
+  background: rgba(8, 14, 24, 0.78);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.35;
+}
+
+/* Player header: on narrow screens the title row and the button row stack instead of overlapping. */
+.player-header { flex-wrap: wrap; row-gap: 6px; }
+.player-title-wrap { flex: 1 1 130px; min-width: 130px; }
+.player-pills { margin-left: auto; }

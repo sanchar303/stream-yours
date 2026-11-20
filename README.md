@@ -1,4 +1,4 @@
-# Stream Yours' — v2
+# Stream Yours' — v2.1
 
 Free, peer-to-peer movie & series streaming in the browser. Videos never touch a server: the host's browser sends
 them straight to the viewer's browser over WebRTC. This repo is a plain static site (no bundler) plus one optional
@@ -126,7 +126,18 @@ Add the new domain as a property in Google Search Console and submit `sitemap.xm
 Nothing was removed: your catalog logic, Firebase paths/schema, MSE multi-audio engine, SEO content, JSON-LD and the
 "Reliable Host" link are all intact.
 
-## 7. Good to know
+## 7. v2.1 additions
+
+- **Subtitles.** Put `.srt` / `.vtt` files next to a video (same name, e.g. `Movie.en.srt`; a lone video in a folder also
+  picks up `Subs/2_English.srt` style files). The host publishes only each subtitle's name and language; the file itself travels
+  over the same WebRTC channel on demand, is converted to WebVTT in the viewer's browser (UTF-8, UTF-16 and Latin-1 files are
+  handled), and the CC button / **C** key turns it on. The last language you picked is switched on automatically for the next
+  video that has it.
+- Player header no longer overlaps on narrow phones; search redraws once per pause in typing.
+- `firebase/stream-yours.rules.json` now also validates the `subs` field. If you already merged the rules, add that
+  `"subs"` block under both `items.$i` and `episodes.$e` (or simply re-copy the two blocks).
+
+## 8. Good to know
 
 - The host's tab must stay open (that is what makes it zero-upload). Phones may suspend backgrounded tabs.
 - Browsers can't decode every format. If a file has no sound or won't play, re-encode it once:

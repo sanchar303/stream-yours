@@ -185,7 +185,7 @@
     <div class="app-viewport-shell">
       <!-- Accessible off-screen file & folder inputs -->
       <input type="file" id="folderInput" class="sr-file-input" webkitdirectory directory multiple aria-label="Choose a local folder of movies or TV series to host" />
-      <input type="file" id="filesInput" class="sr-file-input" accept="video/*,.mp4,.mkv,.webm,.mov,.avi,.m4v" multiple aria-label="Choose individual video files to host" />
+      <input type="file" id="filesInput" class="sr-file-input" accept="video/*,.mp4,.mkv,.webm,.mov,.avi,.m4v,.srt,.vtt" multiple aria-label="Choose individual video files to host" />
 
       <!-- Drag & Drop Overlay -->
       <div class="drop-overlay" id="dropOverlay" aria-hidden="true">
@@ -444,7 +444,7 @@
         </details>
         <details class="seo-faq-item">
           <summary>Which video formats and devices are supported?</summary>
-          <p>Stream Yours' supports MP4, M4V, MOV, WebM, MKV, and other HTML5-compatible video containers across Windows, macOS, Linux, Android, and iOS browsers.</p>
+          <p>Stream Yours' supports MP4, M4V, MOV, WebM, MKV, and other HTML5-compatible video containers across Windows, macOS, Linux, Android, and iOS browsers. Subtitle files (.srt or .vtt) kept next to a video are hosted with it and can be switched on from the CC button in the player.</p>
         </details>
       </div>
 
@@ -472,6 +472,13 @@
               <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
             </svg>
             <span id="audioBtnLabel">Audio</span>
+          </div>
+          <div class="p-pill" id="subBtn" role="button" tabindex="0" onclick="openSubtitlePopup()" style="display:none;" aria-label="Choose subtitles" aria-pressed="false">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <path d="M7 12h3M14 12h3M7 15.5h6M16 15.5h1"></path>
+            </svg>
+            <span id="subBtnLabel">CC</span>
           </div>
           <div class="p-pill" id="prevEpBtn" role="button" tabindex="0" onclick="playPrevEpisode()" style="display:none;" aria-label="Play previous episode">‹ Prev</div>
           <div class="p-pill" id="nextEpBtn" role="button" tabindex="0" onclick="playNextEpisode()" style="display:none;" aria-label="Play next episode">Next ›</div>

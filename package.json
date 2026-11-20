@@ -1,6 +1,6 @@
 {
   "name": "stream-yours",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "Stream Yours' — free peer-to-peer movie & series streaming over WebRTC. Static site + optional TURN function for Cloudflare Pages.",
   "author": "Sanchar Koirala",

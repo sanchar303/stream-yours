@@ -266,6 +266,12 @@ let isMuted = false;
 let localObjectUrl = null;
 let activeRemoteSession = null;
 let isSeekScrubbing = false;
+let activeSubtitle = null;
+let subtitleSelectToken = 0;
+let subtitleRequestSeq = 1000;
+const localSubtitleIds = new Set();
+const SUB_EXTS = new Set(['srt', 'vtt']);
+const SUB_MAX_BYTES = 3 * 1024 * 1024;
 let deferredInstallPrompt = null;
 let lastHostsSignature = null; /* null = nothing rendered yet, so the first pass always draws the UI */
 
@@ -515,7 +521,9 @@ function formatCompactBytes(bytes) {
    FOLDER & FILE INGESTION + HOST BROADCASTING
    ============================================================ */
 function ingestSelectedFiles(fileList, clearExisting = true) {
-  const files = Array.from(fileList || []).filter(f => isVideoFilename(f.name));
+  const allInput = Array.from(fileList || []);
+  const files = allInput.filter(f => isVideoFilename(f.name));
+  const subtitleFiles = allInput.filter(f => isSubtitleFilename(f.name) && f.size > 0 && f.size <= SUB_MAX_BYTES);
   if (files.length === 0) {
     showToast('No supported video files found');
     return;
@@ -523,6 +531,7 @@ function ingestSelectedFiles(fileList, clearExisting = true) {
 
   if (clearExisting) {
     localFileMap.clear();
+    localSubtitleIds.clear();
   }
 
   const folderGroups = new Map();
@@ -538,6 +547,8 @@ function ingestSelectedFiles(fileList, clearExisting = true) {
     });
   }
 
+  const ingestedVideos = [];
+
   files.forEach((file) => {
     const relPath = (file.webkitRelativePath || file.customRelPath || file.name).replace(/^\/+/, '');
     const parts = relPath.split('/').filter(Boolean);
@@ -552,6 +563,7 @@ function ingestSelectedFiles(fileList, clearExisting = true) {
       sizeLabel: formatCompactBytes(file.size),
       type: 'file'
     };
+    ingestedVideos.push({ entry, relPath });
 
     if (parts.length >= 3) {
       const seriesName = parts[parts.length - 2];
@@ -561,6 +573,8 @@ function ingestSelectedFiles(fileList, clearExisting = true) {
       standaloneMovies.push(entry);
     }
   });
+
+  attachSubtitlesToEntries(ingestedVideos, subtitleFiles);
 
   const nextCatalog = [];
 
@@ -772,7 +786,7 @@ async function acquireHostKeepAwake() {
 
   try {
     if (navigator.locks && !hostLockRelease) {
-      navigator.locks.request('stream-yours-host', () => new Promise((resolve) => { hostLockRelease = resolve; })).catch(() => {});
+      navigator.locks.request(`stream-yours-host-${LOCAL_HOST_ID}`, () => new Promise((resolve) => { hostLockRelease = resolve; })).catch(() => {});
     }
   } catch (e) {}
 }
@@ -793,6 +807,7 @@ function stopHosting() {
   stopHostSelfHeal();
   releaseHostKeepAwake();
   localFileMap.clear();
+  localSubtitleIds.clear();
   localCatalogItems = [];
   hostBytesSentWindow = 0;
   hostUploadMbps = 0;
@@ -1026,6 +1041,11 @@ function handleHostStreamCommand(peerState, cmd) {
     return;
   }
 
+  if (cmd.type === 'GET_SUB') {
+    serveSubtitleToViewer(dc, cmd).catch(() => {});
+    return;
+  }
+
   const file = localFileMap.get(cmd.fileId);
   if (!file) {
     dc.send(JSON.stringify({ type: 'FILE_MISSING', streamId: cmd.streamId }));
@@ -1121,6 +1141,7 @@ function reconcileOnlineHosts(force = false) {
               return {
                 ...ep,
                 name: epName,
+                subs: sanitizeSubs(ep.subs),
                 defaultOrder: epIdx,
                 meta: epMeta,
                 cleanName: epMeta.cleanName,
@@ -1136,6 +1157,7 @@ function reconcileOnlineHosts(force = false) {
         hostItems.push({
           ...rawItem,
           name: rawName,
+          subs: sanitizeSubs(rawItem.subs),
           episodes,
           defaultOrder: seq++,
           meta,
@@ -1442,9 +1464,11 @@ function toggleViewMode() {
   renderExplorer();
 }
 
+let searchRenderTimer = null;
 function handleSearchInput(val) {
   searchQuery = val.trim().toLowerCase();
-  renderExplorer();
+  clearTimeout(searchRenderTimer);
+  searchRenderTimer = setTimeout(renderExplorer, 120); /* one redraw per pause in typing, not per keystroke */
 }
 
 function openSeriesFolder(seriesItem, scrollTop = true) {
@@ -2124,6 +2148,7 @@ function createFreshVideoElement(keepRemoteSession = false) {
   const skipLeft = document.getElementById('skipOsdLeft');
   stage.insertBefore(freshVideo, skipLeft);
   attachVideoEvents(freshVideo);
+  applySubtitleToVideo(freshVideo); /* a replacement <video> (fallback, new engine) keeps the chosen subtitles */
   return freshVideo;
 }
 
@@ -2624,6 +2649,7 @@ async function openMediaAtIndex(idx, isSeries, forceStartZero = false) {
   activeIndex = idx;
   activeMedia = item;
   setAvailableAudioTracks([], 0);
+  resetSubtitleState();
 
   let initialStart = 0;
   if (!forceStartZero) {
@@ -2652,6 +2678,8 @@ async function openMediaAtIndex(idx, isSeries, forceStartZero = false) {
   screenEl.classList.add('open');
 
   const video = createFreshVideoElement();
+  refreshSubtitleButton();
+  maybeAutoSelectSubtitle(item);
   const ext = (item.meta && item.meta.ext || '').toLowerCase();
   const isMp4Family = ['mp4', 'm4v', 'mov'].includes(ext);
 
@@ -2786,11 +2814,41 @@ async function startRemoteWebRtcPlayback(item, video, initialStart, isMp4Family)
   let connTimeout = null;
   let disconnectTimer = null;
 
+  /* Subtitle downloads share the data channel with the video stream. */
+  const subRequests = new Map();
+  const openWaiters = [];
+  let channelOpen = false;
+  session.requestSubtitle = async (sub) => {
+    if (!channelOpen) {
+      await new Promise((resolve, reject) => {
+        const t = setTimeout(() => reject(new Error('timeout')), 15000);
+        openWaiters.push({ resolve: () => { clearTimeout(t); resolve(); }, reject: (e) => { clearTimeout(t); reject(e); } });
+      });
+    }
+    const sDc = session.dc;
+    if (session.closed || !sDc || sDc.readyState !== 'open') throw new Error('closed');
+    const reqId = ++subtitleRequestSeq;
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => { subRequests.delete(reqId); reject(new Error('timeout')); }, 15000);
+      subRequests.set(reqId, { parts: [], resolve, reject, timer });
+      try {
+        sDc.send(JSON.stringify({ type: 'GET_SUB', reqId, fileId: sub.id }));
+      } catch (e) {
+        clearTimeout(timer);
+        subRequests.delete(reqId);
+        reject(e);
+      }
+    });
+  };
+
   const cleanupWebRtc = () => {
     if (session.closed) return;
     session.closed = true;
     clearTimeout(connTimeout);
     clearTimeout(disconnectTimer);
+    subRequests.forEach((r) => { clearTimeout(r.timer); r.reject(new Error('closed')); });
+    subRequests.clear();
+    openWaiters.splice(0).forEach((w) => w.reject(new Error('closed')));
     hostCandRef.off();
     answerRef.off();
     const sDc = session.dc;
@@ -2936,6 +2994,8 @@ async function startRemoteWebRtcPlayback(item, video, initialStart, isMp4Family)
 
   dc.onopen = () => {
     if (session.closed) return;
+    channelOpen = true;
+    openWaiters.splice(0).forEach((w) => w.resolve());
     clearTimeout(connTimeout);
     hostCandRef.off();
     answerRef.off();
@@ -2972,6 +3032,21 @@ async function startRemoteWebRtcPlayback(item, video, initialStart, isMp4Family)
     if (typeof ev.data === 'string') {
       let msg;
       try { msg = JSON.parse(ev.data); } catch (e) { return; }
+
+      if (msg.type === 'SUB_DONE' || msg.type === 'SUB_FAIL') {
+        const req = subRequests.get(msg.reqId);
+        if (!req) return;
+        subRequests.delete(msg.reqId);
+        clearTimeout(req.timer);
+        if (msg.type === 'SUB_FAIL') { req.reject(new Error('unavailable')); return; }
+        const total = req.parts.reduce((sum, part) => sum + part.byteLength, 0);
+        const out = new Uint8Array(total);
+        let pos = 0;
+        req.parts.forEach((part) => { out.set(new Uint8Array(part), pos); pos += part.byteLength; });
+        req.resolve(out.buffer);
+        return;
+      }
+
       if (msg.streamId !== undefined && msg.streamId !== streamId) return; /* stale stream */
 
       if (msg.type === 'FILE_MISSING') {
@@ -2997,7 +3072,12 @@ async function startRemoteWebRtcPlayback(item, video, initialStart, isMp4Family)
     const buf = ev.data;
     if (!(buf instanceof ArrayBuffer) || buf.byteLength <= 16) return;
     const view = new DataView(buf);
-    if (view.getUint32(0, true) !== streamId) return;
+    const packetId = view.getUint32(0, true);
+    if (packetId >= 1000 && subRequests.has(packetId)) {
+      subRequests.get(packetId).parts.push(buf.slice(16)); /* ordered channel: chunks arrive in sequence */
+      return;
+    }
+    if (packetId !== streamId) return;
     const byteOffset = view.getFloat64(8, true);
     const payload = buf.slice(16);
 
@@ -3216,8 +3296,10 @@ function updateVolumeIcon() {
 function closePlayer() {
   exitFullscreenMode(false);
   closeModal();
+  resetSubtitleState();
   createFreshVideoElement();
   activeMedia = null;
+  refreshSubtitleButton();
   setAvailableAudioTracks([], 0);
   setLoader(false);
   clearMediaSession();
@@ -3265,6 +3347,8 @@ document.addEventListener('keydown', (e) => {
     } else if (k === 'm') {
       e.preventDefault();
       toggleMute();
+    } else if (k === 'c') {
+      toggleSubtitles();
     } else if (k === 'j') {
       skipBy(-10);
     } else if (k === 'l') {
@@ -3290,6 +3374,265 @@ document.addEventListener('keydown', (e) => {
   if (document.getElementById('playerScreen').classList.contains('open')) return;
   if (document.getElementById('modalBackdrop').classList.contains('open')) closeModal();
 });
+
+/* ============================================================
+   SUBTITLES (sidecar .srt / .vtt files hosted next to the video)
+   ============================================================ */
+function isSubtitleFilename(name) {
+  const m = String(name || '').match(/\.([a-zA-Z0-9]{2,5})$/);
+  return m ? SUB_EXTS.has(m[1].toLowerCase()) : false;
+}
+
+function sanitizeSubs(raw) {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .filter((s) => s && typeof s === 'object' && s.id)
+    .slice(0, 12)
+    .map((s) => ({
+      id: String(s.id).slice(0, 64),
+      name: String(s.name || 'subtitles').slice(0, 200),
+      lang: String(s.lang || 'Subtitles').slice(0, 40),
+      size: Number(s.size) || 0
+    }));
+}
+
+/* "Movie.2021.en.srt" → English, "2_Hindi.srt" → Hindi, "Movie.eng.forced.srt" → English (Forced) */
+function detectSubtitleLanguage(fileName) {
+  const base = String(fileName).replace(/\.[^.]+$/, '');
+  const tokens = base.split(/[\s._\-()\[\]]+/).filter(Boolean).map((t) => t.toLowerCase());
+  const FLAGS = { forced: 'Forced', sdh: 'SDH', cc: 'CC', hi: null, hearing: 'SDH' };
+  let flag = '';
+  let label = '';
+
+  /* Language tags sit at the end of the name, so only the last couple of tokens are considered. */
+  const tail = tokens.slice(-3);
+  /* "Movie.en.hi.srt" means English for the hearing impaired, not Hindi. */
+  if (tail.length >= 2 && tail[tail.length - 1] === 'hi' && ISO_LANG_MAP[tail[tail.length - 2]] && tail[tail.length - 2] !== 'hi') {
+    flag = 'SDH';
+    tail.pop();
+  }
+  for (let i = tail.length - 1; i >= 0; i--) {
+    const t = tail[i];
+    if (Object.prototype.hasOwnProperty.call(FLAGS, t) && FLAGS[t] && t !== 'hi') { flag = flag || FLAGS[t]; continue; }
+    if (t.length >= 2 && ISO_LANG_MAP[t] && (i === tail.length - 1 || tail[i + 1] in FLAGS)) { label = ISO_LANG_MAP[t]; break; }
+    const named = Object.values(ISO_LANG_MAP).find((v) => v.toLowerCase() === t);
+    if (named && (i === tail.length - 1 || tail[i + 1] in FLAGS)) { label = named; break; }
+  }
+  if (!label) return { label: '', flag };
+  return { label, flag };
+}
+
+function attachSubtitlesToEntries(videos, subtitleFiles) {
+  if (!videos.length || !subtitleFiles.length) return;
+  const lower = (s) => String(s).toLowerCase();
+  const dirOf = (p) => (p.includes('/') ? p.slice(0, p.lastIndexOf('/')) : '');
+  const baseOf = (n) => lower(String(n).replace(/\.[^.]+$/, ''));
+  const normDir = (p) => {
+    const parts = lower(dirOf(p)).split('/').filter(Boolean);
+    while (parts.length && /^(subs?|subtitles?)$/.test(parts[parts.length - 1])) parts.pop();
+    return parts.join('/');
+  };
+
+  const infos = videos.map((v) => ({ entry: v.entry, dir: lower(dirOf(v.relPath)), base: baseOf(v.entry.name) }));
+
+  subtitleFiles.forEach((file) => {
+    const rel = String(file.webkitRelativePath || file.customRelPath || file.name).replace(/^\/+/, '');
+    const subDir = normDir(rel);
+    const subBase = baseOf(file.name);
+    const fullLower = '/' + lower(rel);
+
+    let targets = infos.filter((v) => v.dir === subDir && (subBase === v.base || (subBase.startsWith(v.base) && /^[.\s_\-]/.test(subBase.slice(v.base.length)))));
+    if (!targets.length) targets = infos.filter((v) => v.base && fullLower.includes('/' + v.base + '/'));
+    if (!targets.length) {
+      const sameDir = infos.filter((v) => v.dir === subDir);
+      if (sameDir.length === 1) targets = sameDir;
+    }
+    if (!targets.length) return;
+
+    const subId = `s_${generateShortId(8)}`;
+    localFileMap.set(subId, file);
+    localSubtitleIds.add(subId);
+    const { label, flag } = detectSubtitleLanguage(file.name);
+
+    targets.forEach((t) => {
+      if (!t.entry.subs) t.entry.subs = [];
+      if (t.entry.subs.length >= 12) return;
+      const nth = t.entry.subs.length + 1;
+      const lang = label ? (flag ? `${label} (${flag})` : label) : `Subtitles ${nth}`;
+      t.entry.subs.push({ id: subId, name: String(file.name).slice(0, 200), lang, size: file.size });
+    });
+  });
+}
+
+async function serveSubtitleToViewer(dc, cmd) {
+  const reqId = Number(cmd.reqId);
+  const fail = () => {
+    try { if (dc.readyState === 'open') dc.send(JSON.stringify({ type: 'SUB_FAIL', reqId })); } catch (e) {}
+  };
+  const file = localSubtitleIds.has(cmd.fileId) ? localFileMap.get(cmd.fileId) : null;
+  if (!file || !(reqId >= 1000) || file.size > SUB_MAX_BYTES) { fail(); return; }
+  try {
+    const buf = await file.arrayBuffer();
+    const CHUNK = 48 * 1024;
+    for (let off = 0; off < buf.byteLength; off += CHUNK) {
+      if (dc.readyState !== 'open') return;
+      await waitForDcDrain(dc, { aborted: false });
+      dc.send(buildBinaryPacket(reqId, off, buf.slice(off, off + CHUNK)));
+    }
+    dc.send(JSON.stringify({ type: 'SUB_DONE', reqId, bytes: buf.byteLength }));
+  } catch (e) {
+    fail();
+  }
+}
+
+function decodeSubtitleBytes(buf) {
+  const u8 = new Uint8Array(buf);
+  if (u8[0] === 0xFF && u8[1] === 0xFE) return new TextDecoder('utf-16le').decode(u8);
+  if (u8[0] === 0xFE && u8[1] === 0xFF) return new TextDecoder('utf-16be').decode(u8);
+  try {
+    return new TextDecoder('utf-8', { fatal: true }).decode(u8);
+  } catch (e) {
+    return new TextDecoder('windows-1252').decode(u8); /* older SRT files are usually Latin-1 */
+  }
+}
+
+function subtitleBytesToVtt(buf) {
+  let text = decodeSubtitleBytes(buf).replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n');
+  if (/^WEBVTT/.test(text)) return text;
+  text = text
+    .replace(/(\d{1,2}:\d{2}:\d{2}),(\d{1,3})/g, (m, hms, ms) => `${hms.length < 8 ? '0' + hms : hms}.${ms.padEnd(3, '0')}`)
+    .replace(/\{\\[^}]*\}/g, '');
+  return `WEBVTT\n\n${text.trim()}\n`;
+}
+
+function applySubtitleToVideo(video) {
+  if (!video) return;
+  video.querySelectorAll('track').forEach((t) => t.remove());
+  if (!activeSubtitle) return;
+  const track = document.createElement('track');
+  track.kind = 'subtitles';
+  track.label = activeSubtitle.label;
+  track.srclang = activeSubtitle.srclang || 'und';
+  track.src = activeSubtitle.url;
+  track.default = true;
+  video.appendChild(track);
+  const show = () => { try { track.track.mode = 'showing'; } catch (e) {} };
+  show();
+  track.addEventListener('load', show);
+}
+
+function resetSubtitleState() {
+  if (activeSubtitle && activeSubtitle.url) {
+    try { URL.revokeObjectURL(activeSubtitle.url); } catch (e) {}
+  }
+  activeSubtitle = null;
+  subtitleSelectToken++;
+  applySubtitleToVideo(getActiveVideo());
+  refreshSubtitleButton();
+}
+
+function refreshSubtitleButton() {
+  const btn = document.getElementById('subBtn');
+  if (!btn) return;
+  const subs = (activeMedia && activeMedia.subs) || [];
+  btn.style.display = subs.length > 0 ? 'inline-flex' : 'none';
+  const lbl = document.getElementById('subBtnLabel');
+  if (lbl) lbl.textContent = activeSubtitle ? activeSubtitle.shortLabel : 'CC';
+  btn.setAttribute('aria-pressed', activeSubtitle ? 'true' : 'false');
+}
+
+function openSubtitlePopup() {
+  const subs = (activeMedia && activeMedia.subs) || [];
+  if (!subs.length) return;
+  document.getElementById('modalTitle').textContent = 'Subtitles';
+  document.getElementById('modalList').innerHTML = `
+    <div class="modal-option ${activeSubtitle ? '' : 'selected'}" role="button" tabindex="0" onclick="selectSubtitle(-1)" aria-label="Turn subtitles off">
+      <div class="opt-main"><div class="opt-title">Off</div><div class="opt-sub">No subtitles</div></div>
+      <div class="opt-check">✓</div>
+    </div>
+    ${subs.map((s, i) => `
+    <div class="modal-option ${activeSubtitle && activeSubtitle.id === s.id ? 'selected' : ''}" role="button" tabindex="0" onclick="selectSubtitle(${i})" aria-label="Show ${escapeHtml(s.lang)} subtitles">
+      <div class="opt-main"><div class="opt-title">${escapeHtml(s.lang)}</div><div class="opt-sub">${escapeHtml(s.name)}</div></div>
+      <div class="opt-check">✓</div>
+    </div>`).join('')}
+  `;
+  document.getElementById('modalBackdrop').classList.add('open');
+}
+
+async function loadSubtitleBytes(item, sub) {
+  if (item.isLocal) {
+    const file = localFileMap.get(sub.id);
+    if (!file) throw new Error('missing');
+    return file.arrayBuffer();
+  }
+  /* the tunnel may still be connecting; wait up to ~8 s for it to exist */
+  for (let i = 0; i < 160 && activeMedia === item; i++) {
+    if (activeRemoteSession && activeRemoteSession.requestSubtitle) return activeRemoteSession.requestSubtitle(sub);
+    await new Promise((r) => setTimeout(r, 50));
+  }
+  throw new Error('not connected');
+}
+
+function subtitlePrefKey(sub) {
+  return String(sub.lang || '').toLowerCase();
+}
+
+async function selectSubtitle(idx, silent = false) {
+  if (!silent) closeModal();
+  const item = activeMedia;
+  if (!item) return;
+
+  if (idx < 0) {
+    resetSubtitleState();
+    storage.set('sy_sub_on', '0'); /* off, but the chosen language is remembered for the next time they are switched on */
+    if (!silent) showToast('Subtitles off');
+    return;
+  }
+  const sub = (item.subs || [])[idx];
+  if (!sub) return;
+
+  const token = ++subtitleSelectToken;
+  try {
+    if (!silent) showToast('Loading subtitles…');
+    const buf = await loadSubtitleBytes(item, sub);
+    if (token !== subtitleSelectToken || activeMedia !== item) return; /* superseded or player closed */
+    const vtt = subtitleBytesToVtt(buf);
+    const url = URL.createObjectURL(new Blob([vtt], { type: 'text/vtt' }));
+    if (activeSubtitle && activeSubtitle.url) { try { URL.revokeObjectURL(activeSubtitle.url); } catch (e) {} }
+    const code = Object.keys(ISO_LANG_MAP).find((k) => k.length === 2 && sub.lang.startsWith(ISO_LANG_MAP[k]));
+    activeSubtitle = { id: sub.id, label: sub.lang, srclang: code || 'und', shortLabel: (code || 'CC').toUpperCase(), url };
+    applySubtitleToVideo(getActiveVideo());
+    refreshSubtitleButton();
+    if (!silent) {
+      storage.set('sy_sub_lang', subtitlePrefKey(sub));
+      storage.set('sy_sub_on', '1');
+      showToast(`Subtitles: ${sub.lang}`);
+    }
+  } catch (e) {
+    if (token === subtitleSelectToken && !silent) showToast('Could not load subtitles');
+  }
+}
+
+function toggleSubtitles() {
+  const subs = (activeMedia && activeMedia.subs) || [];
+  if (!subs.length) { showToast('No subtitles for this video'); return; }
+  if (activeSubtitle) { selectSubtitle(-1); return; }
+  const lang = storage.get('sy_sub_lang');
+  let idx = lang ? subs.findIndex((s) => subtitlePrefKey(s) === lang) : -1;
+  if (idx < 0) idx = 0;
+  selectSubtitle(idx);
+}
+
+/* Remember the language the viewer last chose and switch it on automatically for the next video that has it. */
+function maybeAutoSelectSubtitle(item) {
+  const subs = item.subs || [];
+  if (!subs.length) return;
+  if (storage.get('sy_sub_on') !== '1') return;
+  const lang = storage.get('sy_sub_lang');
+  if (!lang) return;
+  const idx = subs.findIndex((s) => subtitlePrefKey(s) === lang);
+  if (idx >= 0) selectSubtitle(idx, true);
+}
 
 /* ============================================================
    MEDIA SESSION (lock-screen / headset / keyboard media keys)

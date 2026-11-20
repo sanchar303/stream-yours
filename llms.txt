@@ -10,6 +10,7 @@ Stream Yours' allows any user to select a local folder or individual video files
 - **Automatic Movies & Series Categorization:** Standalone video files appear under **Movies** with parsed resolution (`4K`, `1080p`, `720p`), release year, and codec (`HDR`, `HEVC`) badges, while subfolders group automatically into **Series** with ordered episode playlists.
 - **Embedded Multi-Language Audio Switching:** Uses MP4Box and HTML5 Media Source Extensions (MSE) to detect embedded ISO-639 audio tracks (English, Hindi, Japanese, Korean, Spanish, and more) and switch languages mid-stream.
 - **Keyframe-Accurate Timeline & Gesture Controls:** Features exact `HH:MM:SS` hover scrubbing, double-tap `±10s` skip gestures, `0.5x`–`2x` playback speed, loop mode, and local watch-progress resume.
+- **Sidecar Subtitles:** `.srt` and `.vtt` files placed next to a video are hosted with it, matched by name or folder, converted to WebVTT in the viewer's browser, and remembered by language.
 - **Instant Disconnection Cleanup:** Combines a 5-second presence heartbeat with `onDisconnect` and `keepalive` cleanup so offline hosts vanish immediately.
 
 ## Entry Points
