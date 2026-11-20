@@ -5,35 +5,111 @@
       "$hostId": {
         ".write": true,
         ".validate": "newData.hasChildren(['id', 'name', 'updatedAt'])",
-        "id": { ".validate": "newData.isString() && newData.val().length <= 64" },
-        "name": { ".validate": "newData.isString() && newData.val().length <= 80" },
-        "updatedAt": { ".validate": "newData.isNumber()" },
+        "id": {
+          ".validate": "newData.isString() && newData.val().length <= 64"
+        },
+        "name": {
+          ".validate": "newData.isString() && newData.val().length <= 80"
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber()"
+        },
         "items": {
           "$i": {
             ".validate": "newData.hasChildren(['id', 'name'])",
-            "id": { ".validate": "newData.isString() && newData.val().length <= 128" },
-            "name": { ".validate": "newData.isString() && newData.val().length <= 400" },
-            "path": { ".validate": "newData.isString() && newData.val().length <= 1000" },
-            "size": { ".validate": "newData.isNumber()" },
-            "sizeLabel": { ".validate": "newData.isString() && newData.val().length <= 32" },
-            "type": { ".validate": "newData.isString() && (newData.val() === 'file' || newData.val() === 'folder')" },
-            "count": { ".validate": "newData.isNumber()" },
+            "id": {
+              ".validate": "newData.isString() && newData.val().length <= 128"
+            },
+            "name": {
+              ".validate": "newData.isString() && newData.val().length <= 400"
+            },
+            "path": {
+              ".validate": "newData.isString() && newData.val().length <= 1000"
+            },
+            "size": {
+              ".validate": "newData.isNumber()"
+            },
+            "sizeLabel": {
+              ".validate": "newData.isString() && newData.val().length <= 32"
+            },
+            "type": {
+              ".validate": "newData.isString() && (newData.val() === 'file' || newData.val() === 'folder')"
+            },
+            "count": {
+              ".validate": "newData.isNumber()"
+            },
             "episodes": {
               "$e": {
                 ".validate": "newData.hasChildren(['id', 'name'])",
-                "id": { ".validate": "newData.isString() && newData.val().length <= 128" },
-                "name": { ".validate": "newData.isString() && newData.val().length <= 400" },
-                "path": { ".validate": "newData.isString() && newData.val().length <= 1000" },
-                "size": { ".validate": "newData.isNumber()" },
-                "sizeLabel": { ".validate": "newData.isString() && newData.val().length <= 32" },
-                "type": { ".validate": "newData.isString() && newData.val().length <= 16" },
-                "$other": { ".validate": true }
+                "id": {
+                  ".validate": "newData.isString() && newData.val().length <= 128"
+                },
+                "name": {
+                  ".validate": "newData.isString() && newData.val().length <= 400"
+                },
+                "path": {
+                  ".validate": "newData.isString() && newData.val().length <= 1000"
+                },
+                "size": {
+                  ".validate": "newData.isNumber()"
+                },
+                "sizeLabel": {
+                  ".validate": "newData.isString() && newData.val().length <= 32"
+                },
+                "type": {
+                  ".validate": "newData.isString() && newData.val().length <= 16"
+                },
+                "$other": {
+                  ".validate": true
+                },
+                "subs": {
+                  "$s": {
+                    "id": {
+                      ".validate": "newData.isString() && newData.val().length <= 64"
+                    },
+                    "name": {
+                      ".validate": "newData.isString() && newData.val().length <= 400"
+                    },
+                    "lang": {
+                      ".validate": "newData.isString() && newData.val().length <= 64"
+                    },
+                    "size": {
+                      ".validate": "newData.isNumber()"
+                    },
+                    "$other": {
+                      ".validate": true
+                    }
+                  }
+                }
               }
             },
-            "$other": { ".validate": true }
+            "$other": {
+              ".validate": true
+            },
+            "subs": {
+              "$s": {
+                "id": {
+                  ".validate": "newData.isString() && newData.val().length <= 64"
+                },
+                "name": {
+                  ".validate": "newData.isString() && newData.val().length <= 400"
+                },
+                "lang": {
+                  ".validate": "newData.isString() && newData.val().length <= 64"
+                },
+                "size": {
+                  ".validate": "newData.isNumber()"
+                },
+                "$other": {
+                  ".validate": true
+                }
+              }
+            }
           }
         },
-        "$other": { ".validate": true }
+        "$other": {
+          ".validate": true
+        }
       }
     },
     "stream-yours-signals": {
@@ -42,16 +118,34 @@
         ".write": true,
         "$sessionKey": {
           "offer": {
-            "sdp": { ".validate": "newData.isString() && newData.val().length < 30000" },
-            "$other": { ".validate": true }
+            "sdp": {
+              ".validate": "newData.isString() && newData.val().length < 30000"
+            },
+            "$other": {
+              ".validate": true
+            }
           },
           "answer": {
-            "sdp": { ".validate": "newData.isString() && newData.val().length < 30000" },
-            "$other": { ".validate": true }
+            "sdp": {
+              ".validate": "newData.isString() && newData.val().length < 30000"
+            },
+            "$other": {
+              ".validate": true
+            }
           },
-          "createdAt": { ".validate": "newData.isNumber()" },
-          "hostCandidates": { "$c": { ".validate": "newData.hasChildren()" } },
-          "viewerCandidates": { "$c": { ".validate": "newData.hasChildren()" } }
+          "createdAt": {
+            ".validate": "newData.isNumber()"
+          },
+          "hostCandidates": {
+            "$c": {
+              ".validate": "newData.hasChildren()"
+            }
+          },
+          "viewerCandidates": {
+            "$c": {
+              ".validate": "newData.hasChildren()"
+            }
+          }
         }
       }
     }
